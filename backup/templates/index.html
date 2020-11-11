@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+
+        <style>
+
+            body {
+                background-color: rgba(0, 0, 0, .05);
+            }
+
+            .container {
+                outline: 1px solid red;
+                background-color: white;
+                /*height: 100vh;       !* 임시 *!*/
+            }
+
+            .container > h1 {
+                outline: 1px solid orange;
+            }
+
+            .container > .form_wrap {
+                outline: 1px solid orange;
+                padding: 100px 0;            /* 임시 */
+            }
+            .form_wrap > form {
+                outline: 1px solid yellow;
+                display: flex;
+                flex-direction: column;
+                /*justify-content: center;*/
+                align-items: center;
+            }
+            .form_wrap > form > .form_column_box {
+                outline: 1px solid limegreen;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                margin-bottom: 50px;           /* 임시 */
+            }
+            .form_wrap > form > .form_column_box > div {
+                outline: 1px solid blue;
+                margin: 0;
+            }
+            .form_wrap > form > .form_column_box > div > label {
+
+            }
+            .form_wrap > form > .form_column_box > div:not(:nth-child(6)) > input {
+                width: 500px;
+            }
+            .form_wrap > form > .form_column_box > div:nth-child(6) > input {
+                width: 240px;
+            }
+            .form_wrap > form > button {
+                outline: 1px solid limegreen;
+                width: 150px;
+            }
+
+            .container > .table_wrap {
+                outline: 1px solid orange;
+            }
+            .table_wrap > table {
+                outline: 1px solid yellow;
+            }
+
+            .table_wrap > table > thead {
+                outline: 1px solid limegreen;
+            }
+            .table_wrap > table > thead > tr {
+
+            }
+            .table_wrap > table > thead > tr > th {
+
+            }
+            .table_wrap > table > #content_box {        /* #content_box == tbody */
+                outline: 1px solid limegreen;
+            }
+            .table_wrap > table > #content_box > tr {
+
+            }
+            .table_wrap > table > #content_box > tr > td {
+
+            }
+
+            footer {
+                outline: 1px solid orange;
+            }
+
+        </style>
+
+        <title>Find_Fine_Wine_sample</title>
+    </head>
+    <body>
+
+        <div class="container">
+            <h1>Find_Fine_Wine</h1>
+
+            <div class="form_wrap">
+                <form action="">
+                    <div class="form_column_box">
+                        <div class="form-group">        <!-- change event -->
+<!--                            <label for="search_k_name">와인이름(kr)</label>-->
+                            <input type="text" id="search_k_name" placeholder="와인이름(kr)" />
+                        </div>
+                        <div class="form-group">
+<!--                            <label for="search_e_name">와인이름(en)</label>-->
+                            <input type="text" id="search_e_name" placeholder="와인이름(en)" />
+                        </div>
+                        <div class="form-group">
+<!--                            <label for="search_contry">제조국</label>-->
+                            <input type="text" id="search_contry" placeholder="제조국" />
+                        </div>
+                        <div class="form-group">
+<!--                            <label for="search_importer">수입사</label>-->
+                            <input type="text" id="search_importer" placeholder="수입사" />
+                        </div>
+                        <div class="form-group">
+<!--                            <label for="search_winery">와이너리</label>-->
+                            <input type="text" id="search_winery" placeholder="와이너리" />
+                        </div>
+                        <div class="form-group">
+<!--                            <label for="search_date">수입일</label>     &lt;!&ndash; 범위 검색, 달력으로 교체?(구글에 html 달력 템플리 검색)(http://happycgi.com/15587) &ndash;&gt;-->
+                            <input type="text" id="search_date_min" placeholder="수입일 ex) 2019-01-01" />     <!-- 년도, 월, 일 나누기??, '-' 없이 검색하는 게 더 편할 듯 -->
+                            <span>~</span>
+                            <input type="text" id="search_date_max" placeholder="ex) 2020-10-23" />
+                        </div>
+                    </div>
+                    <button type="button" id="search_btn" class="btn btn-primary" onclick="">검색</button>
+                </form>
+            </div>
+
+            <div class="table_wrap">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">와인 이름 (kr)</th>
+                            <th scope="col">와인 이름 (en)</th>
+                            <th scope="col">제조국</th>
+                            <th scope="col">수입사</th>
+                            <th scope="col">와이너리</th>
+                            <th scope="col">수입일</th>
+                        </tr>
+                    </thead>
+                    <tbody id="content_box">
+                        <!-- ex -->
+                        <tr>
+                            <td>와인 이름1</td>
+                            <td>wine name1</td>
+                            <td>대한민국</td>
+                            <td>수입사</td>
+                            <td>와이너리</td>
+                            <td>2020-10-21</td>
+                        </tr>
+                        <tr>
+                            <td>와인 이름2</td>
+                            <td>wine name2</td>
+                            <td>대한민국</td>
+                            <td>수입사</td>
+                            <td>와이너리</td>
+                            <td>2020-10-21</td>
+                        </tr>
+                        <tr>
+                            <td>와인 이름3</td>
+                            <td>wine name3</td>
+                            <td>대한민국</td>
+                            <td>수입사</td>
+                            <td>와이너리</td>
+                            <td>2020-10-21</td>
+                        </tr>
+                        <!-- /ex -->
+                    </tbody>
+                </table>
+            </div>
+
+            <footer>
+                <p>footer</p>
+            </footer>
+
+        </div>
+
+        <script>
+            // $(document).ready(function () {
+            // $("#content_box").html("");      // 임시 주석
+            // showArticles();
+            // });
+
+            // input 에 change event
+
+            $("#search_btn").on("click", function(event) {
+                postArticle();
+                $("#content_box").empty();
+                showArticles();
+            });
+
+            // showArticles();
+
+            function postArticle() {
+                let k_name, e_name, contry, importer, winery, date_min, date_max;
+                k_name = $("#search_k_name").val();
+                e_name = $("#search_e_name").val().toUpperCase();
+                contry = $("#search_contry").val();
+                importer = $("#search_importer").val();
+                winery = $("#search_winery").val();
+                date_min = $("#search_date_min").val();
+                date_max = $("#search_date_max").val();
+
+                // console.log(url, comment)
+                $.ajax({
+                    type: "POST",
+                    url: "/wine",
+                    data: {"k_name_give": k_name, "e_name_give": e_name, "contry_give": contry, "importer_give": importer, "winery_give": winery},   // app.py로 보내기?, date 임시 제거
+                    success: function (response) { // 성공하면
+                        // if (response["result"] == "success") {
+                        //     alert(response["msg"]);
+                        //     window.location.reload();
+                        // }
+                        console.log("search_POST");
+                    }
+                })
+            }
+
+            // Enter 누르면 검색 되게끔 하기, 통합검색도 구현하기
+            // 기본 수입일 정렬(다음 한글이름순), 각각 정렬로 보기 기능 구현하기, 클릭중일 때 삐죽 튀어나왔다가 튀어나온 방향으로 드레그 하면 열리는 기능?
+            // 결과값이 너무 많으면 한 페이지에 20개 정도 출력?
+            // 띄어쓰기 생략해도 검색 가능하게끔?(일단 k_name ~ winery만 구현)
+            // google 처럼 한글자 검색할 때마다 나오는 자동완성? 창 문자열 index 가 가장 낮은 순서대로 나오게(5개정도?)
+            function showArticles() {
+                let k_name_val, e_name_val, contry_val, importer_val, winery_val, date_min_val, date_max_val;
+                k_name_val = $("#search_k_name").val().replace(" ", "");
+                e_name_val = $("#search_e_name").val().toUpperCase().replace(" ", "");
+                contry_val = $("#search_contry").val().replace(" ", "");
+                importer_val = $("#search_importer").val().replace(" ", "");
+                winery_val = $("#search_winery").val().replace(" ", "");
+                date_min_val = $("#search_date_min").val();
+                date_max_val = $("#search_date_max").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/wine",
+                    data: {},
+                    success: function (response) {
+                        let wines = response["wines"];
+                        let num = 0;
+
+                        // 일단 수입일은 제외(||)
+                        if (k_name_val === "" && e_name_val === "" && contry_val === "" && importer_val === "" && winery_val === "" && date_min_val === "" && date_max_val === "") {        // thaed display:none, 검색결과가 있으면 다시 display: block
+                            alert("검색할 내용을 입력해주세요.");
+                        } else {
+                            for (let i = 0; i < wines.length; i++) {
+                                let wine = wines[i];
+                                let k_name = wine["와인_이름_kr"];
+                                let e_name = wine["와인_이름_en"];
+                                let contry = wine["제조국"];
+                                let importer = wine["수입사"];
+                                let winery = wine["와이너리"];
+                                let date = wine["수입일"];
+
+                                // date_range_calculation
+                                let date_boolean;
+                                let min = date_min_val.split("-");
+                                let date_array = date.split("-");
+                                let max = date_max_val.split("-");
+                                if (Number(min[0]) === Number(date_array[0])) {
+                                    if (Number(min[1]) === Number(date_array[1])) {
+                                        if (Number(min[2]) <= Number(date_array[2])) {
+                                            // console.log("min_day_true");
+                                            date_boolean = true;
+                                        } else {
+                                            // console.log("min_day_false");
+                                            date_boolean = false;
+                                        }
+                                    } else if (Number(min[1]) < Number(date_array[1])) {
+                                        // console.log("min_month_true");
+                                        date_boolean = true;
+                                    } else {
+                                        // console.log("min_month_false");
+                                        date_boolean = false;
+                                    }
+                                } else if (Number(min[0]) < Number(date_array[0]) < Number(max[0])) {
+                                    // console.log("date_tear_true");
+                                    date_boolean = true;
+                                } else if (Number(date_array[0]) === Number(max[0])) {
+                                    if (Number(date_array[1]) === Number(max[1])) {
+                                        if (Number(date_array[2]) <= Number(max[2])) {
+                                            // console.log("max_day_true");
+                                            date_boolean = true;
+                                        } else {
+                                            // console.log("max_day_false");
+                                            date_boolean = false;
+                                        }
+                                    } else if (Number(date_array[1]) < Number(max[1])) {
+                                        // console.log("max_month_true");
+                                        date_boolean = true;
+                                    } else {
+                                        // console.log("max_month_false");
+                                        date_boolean = false;
+                                    }
+                                } else {
+                                    // console.log("date_year_false");
+                                    date_boolean = false;
+                                }
+
+                                if (k_name.replace(" ", "").includes(k_name_val) && e_name.replace(" ", "").includes(e_name_val) && contry.replace(" ", "").includes(contry_val) && importer.replace(" ", "").includes(importer_val) && winery.replace(" ", "").includes(winery_val) || date_boolean) {
+                                    let html = `
+                                        <tr id="tr_${num}">
+                                            <td>${k_name}</td>
+                                            <td>${e_name}</td>
+                                            <td>${contry}</td>
+                                            <td>${importer}</td>
+                                            <td>${winery}</td>
+                                            <td>${date}</td>
+                                        </tr>
+                                    `;
+                                    $("#content_box").append(html);
+                                    num++;
+                                }
+
+                                console.log("GET");
+
+                                // $("#content_box").append(html);
+                                // console.log(k_name);
+                                // window.location.reload();    // 이미 있다??
+                            }
+
+                            if ($("#content_box > tr").length === 0) {
+                                alert("검색 결과를 찾을 수 없습니다.");
+                                console.log("nothing");
+                            }
+                        }
+
+                        // console.log(wines)       // 확인
+
+                        // if (response["result"] == "success") {
+                        //     alert(response["msg"]);
+                        // }
+                    }
+                })
+            }
+
+        </script>
+
+    </body>
+</html>

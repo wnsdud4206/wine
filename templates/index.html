@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->     <!-- slim을 지우면 bootstrap이 안먹힘 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <!-- myStylesheet -->
+        <link rel="stylesheet" href="../static/css/main.css">
+
+        <title>Find_Fine_Wine_sample</title>
+    </head>
+    <body>
+
+        <!-- <bootstrap> .container는 기본?, .container-fluid는 전체 너비 채우기 -->
+        <div id="container" class="container-fluid">
+            <div class="logo_form_wrap">
+                <h1 class="logo">Find_Fine_Wine</h1>
+
+                <div class="form_wrap">
+                    <form action="">
+                        <div class="form_column_box">
+
+                            <!-- 통합검색 구현?? -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button class="dropdown-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">한글명</button>
+                                    <div class="dropdown-menu">
+                                        <!-- text가 아니라 icon으로 바꾸기? -->
+                                        <a class="k_slt" href="javascript:void(0)" value="k_name">한글명</a>
+                                        <a class="e_slt" href="javascript:void(0)" value="e_name">영문명</a>
+                                        <a class="c_slt" href="javascript:void(0)" value="country">제조국</a>
+<!--                                        <div role="separator" class="dropdown-divider"></div>-->
+                                        <a class="i_slt" href="javascript:void(0)" value="importer">수입사</a>
+                                        <a class="w_lst" href="javascript:void(0)" value="winery">와이너리</a>
+                                        <a class="d_slt" href="javascript:void(0)" value="date">수입일</a>
+                                    </div>
+                                </div>
+
+                                <!-- 검색주제 선택하면 class 생성(기본: 한글명) -->
+                                <div class="input_wrap k_name_box">
+                                    <input type="text" class="form-control k_name" aria-label="Text input with dropdown button">
+                                </div>
+
+                                <div class="input-group-append">
+                                    <!-- 선 끝 둥글게?? -->
+                                    <button class="add_btn" type="button">
+                                        <svg viewBox="0 0 20 20" width="20" height="20">
+                                            <path fill="none" stroke="#000" stroke-width="2" d="M 10 0 L 10 20 Z M 0 10 L 20 10 Z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- 수입일 범위로(2019-01-01 ~ 현재 사이) -->
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button class="dropdown-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">수입일</button>
+                                    <div class="dropdown-menu">
+                                        <!-- text가 아니라 icon으로 바꾸기? -->
+                                        <a class="k_slt" href="javascript:void(0)" value="k_name">한글명</a>
+                                        <a class="e_slt" href="javascript:void(0)" value="e_name">영문명</a>
+                                        <a class="c_slt" href="javascript:void(0)" value="country">제조국</a>
+<!--                                        <div role="separator" class="dropdown-divider"></div>-->
+                                        <a class="i_slt" href="javascript:void(0)" value="importer">수입사</a>
+                                        <a class="w_slt" href="javascript:void(0)" value="winery">와이너리</a>
+                                        <a class="d_slt" href="javascript:void(0)" value="date">수입일</a>
+                                    </div>
+                                </div>
+
+                                <div class="input_wrap date_box">
+                                    <input class="form-control min_fix_inp" type="number" value="20" readonly/>
+                                    <input class="form-control min_date_year date_year date" id="min_date_year" type="number" value="19" />
+                                    <label for="min_date_year" class="col-form-label">년</label>
+                                    <input class="form-control min_date_month date_month date" id="min_date_month" type="number" value="1" />
+                                    <label for="min_date_month" class="col-form-label">월</label>
+                                    <input class="form-control min_date_day date_day date" id="min_date_day" type="number" value="1" />
+                                    <label for="min_date_day" class="col-form-label">일</label>
+
+                                    <label class="col-form-label">~</label>
+
+                                    <input class="form-control max_fix_inp" type="number" value="20" readonly/>
+                                    <input class="form-control max_date_year date_year date" id="max_date_year" type="number" value="20" />
+                                    <label for="max_date_year" class="col-form-label">년</label>
+                                    <input class="form-control max_date_month date_month date" id="max_date_month" type="number" value="10" />
+                                    <label for="max_date_month" class="col-form-label">월</label>
+                                    <input class="form-control max_date_day date_day date" id="max_date_day" type="number" value="20" />
+                                    <label for="max_date_day" class="col-form-label">일</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <button class="remove_btn" type="button">
+                                        <svg viewBox="0 0 20 20" width="20" height="20">
+                                            <path fill="none" stroke="#000" stroke-width="2" d="M 0 10 L 20 10 Z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+
+
+<!--                            <input class="form-control test" type="number" />-->
+
+<!--                            <div class="form-group">        &lt;!&ndash; change event &ndash;&gt;-->
+<!--    &lt;!&ndash;                            <label for="search_k_name">와인이름(kr)</label>&ndash;&gt;-->
+<!--                                <input type="text" id="search_k_name" placeholder="와인이름(kr)" />-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--    &lt;!&ndash;                            <label for="search_e_name">와인이름(en)</label>&ndash;&gt;-->
+<!--                                <input type="text" id="search_e_name" placeholder="와인이름(en)" />-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--    &lt;!&ndash;                            <label for="search_country">제조국</label>&ndash;&gt;-->
+<!--                                <input type="text" id="search_country" placeholder="제조국" />-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--    &lt;!&ndash;                            <label for="search_importer">수입사</label>&ndash;&gt;-->
+<!--                                <input type="text" id="search_importer" placeholder="수입사" />-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--    &lt;!&ndash;                            <label for="search_winery">와이너리</label>&ndash;&gt;-->
+<!--                                <input type="text" id="search_winery" placeholder="와이너리" />-->
+<!--                            </div>-->
+<!--                            <div class="form-group">-->
+<!--    &lt;!&ndash;                            <label for="search_date">수입일</label>     &lt;!&ndash; 범위 검색, 달력으로 교체?(구글에 html 달력 템플리 검색)(http://happycgi.com/15587) &ndash;&gt;&ndash;&gt;-->
+<!--                                <input type="text" id="search_date_min" placeholder="수입일 ex) 2019-01-01" />     &lt;!&ndash; 년도, 월, 일 나누기??, '-' 없이 검색하는 게 더 편할 듯 &ndash;&gt;-->
+<!--                                <span>~</span>-->
+<!--                                <input type="text" id="search_date_max" placeholder="ex) 2020-10-23" />-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <button type="button" id="search_btn" class="btn btn-primary" onclick="">검색</button>-->
+                        </div>
+
+                        <button class="search_btn" type="button">
+                            <svg viewBox="0 0 20 20" width="20" height="20">
+                                <circle fill="none" stroke="#000" stroke-width="2" cx="9", cy="9" r="7"></circle>
+                                <path fill="none" stroke="#000" stroke-width="2" d="M 14 14 L 20 20 Z"></path>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table_wrap">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">와인 이름 (kr)</th>
+                            <th scope="col">와인 이름 (en)</th>
+                            <th scope="col">제조국</th>
+                            <th scope="col">수입사</th>
+                            <th scope="col">와이너리</th>
+                            <th scope="col">수입일</th>
+                        </tr>
+                    </thead>
+                    <tbody id="content_box">
+                        <!-- ex -->
+                        <tr>
+                            <td>와인 이름1</td>
+                            <td>wine name1</td>
+                            <td>대한민국</td>
+                            <td>수입사</td>
+                            <td>와이너리</td>
+                            <td>2020-10-21</td>
+                        </tr>
+                        <tr>
+                            <td>와인 이름2</td>
+                            <td>wine name2</td>
+                            <td>대한민국</td>
+                            <td>수입사</td>
+                            <td>와이너리</td>
+                            <td>2020-10-21</td>
+                        </tr>
+                        <tr>
+                            <td>와인 이름3</td>
+                            <td>wine name3</td>
+                            <td>대한민국</td>
+                            <td>수입사</td>
+                            <td>와이너리</td>
+                            <td>2020-10-21</td>
+                        </tr>
+                        <!-- /ex -->
+                    </tbody>
+                </table>
+            </div>
+
+            <footer>
+                <p>footer</p>
+            </footer>
+
+        </div>
+
+        <!-- myScript -->
+        <script src="../static/js/myScript.js"></script>
+
+    </body>
+</html>

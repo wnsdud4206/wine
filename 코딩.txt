@@ -1,0 +1,23 @@
+div.input-group~6	- div.input-group-prepend	- button.dropdown-btn
+					- div.dropdown-menu	- a~6
+		- input.form-control
+
+a(text)	- 한글명, 영문명, 제조국, 수입사, 와이너리, 수입일
+a(value)	- k_name, e_name, country, importer, winery, date
+
+a(click)	- button.dropdown-btn(text, a(text))
+	- input.form-control(removeClass, addClass, a(value))
+
+모든 input(class[1]) 가 모든 a(value) 중에 일치하는 것이 있다면 hide
+
+
+부모 - .parentElement
+형제 - .nextElementSibling, .previousElementSibling
+자식[] - .children()
+
+k_slt	k_name
+e_slt	e_name
+c_slt	country
+i_slt	importer
+w_slt	winery
+d_slt	date
