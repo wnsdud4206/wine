@@ -19,18 +19,23 @@ a:hover {
     position: relative;
 }
 
-.container-fluid > .logo_form_wrap > h1.logo {          /* 너비를 글씨 크기에 맞춰야함 */
+.container-fluid > .logo_form_wrap {
     outline: 1px solid orange;
+    margin-bottom: 100px;           /* 임시 */
+}
+
+.container-fluid > .logo_form_wrap > h1.logo {          /* 너비를 글씨 크기에 맞춰야함 */
+    outline: 1px solid yellow;
     text-align: center;
 }
 
 /* 통합검색 구현과 input 태그 안에 button(세부검색 드롭다운, 검색버튼) 구현하기 */
 .container-fluid > .logo_form_wrap > .form_wrap {
-    outline: 1px solid orange;
+    outline: 1px solid yellow;
     /*padding: 100px 0;            !* 임시 *!*/
 }
 .logo_form_wrap > .form_wrap > form {
-    outline: 1px solid yellow;
+    outline: 1px solid limegreen;
     display: flex;
     flex-direction: column;
     /*justify-content: center;*/

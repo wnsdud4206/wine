@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->     <!-- slim을 지우면 bootstrap이 안먹힘 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <!-- font -->
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
+
+        <style>
+            * {
+                font-family: 'Roboto Mono', monospace;
+            }
+
+            :root {
+            }
+
+            .container-fluid {
+                height: 100vh;
+                background-color: beige;
+                /*background-color: #543838;*/
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-content: center;
+            }
+
+            .container-fluid > .logo {
+                /*outline: 1px solid orange;*/
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                opacity: 0;
+                animation: load_opacity .4s ease-in-out .1s 1 alternate forwards;
+            }
+
+            .logo span[class*="font"] {
+                /* 크기 조절 잘 해야함, 안그럼 삐덕거림 */
+                font-size: 2em;
+                height: 100px;
+            }
+            .logo > .WF_wrap, .logo > .DE_wrap {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-content: center;
+                position: relative;
+                /*width: 38px;*/
+            }
+
+            .logo > .WF_wrap {
+            }
+            .logo > .DE_wrap {
+            }
+
+            .WF_wrap > .W_font, .WF_wrap > .F_font {
+                position: absolute;
+                right: 100%;
+                overflow: hidden;
+            }
+            .WF_wrap > .W_font {
+                top: 0;
+                color: #b4281E;
+            }
+            .WF_wrap > .F_font {
+                bottom: 0;
+                color: #af717b;
+            }
+
+
+            .IN_font {
+                color: #af717b;
+            }
+
+
+            .DE_wrap > .D_font, .DE_wrap > .E_font {
+                position: absolute;
+                overflow: hidden;
+            }
+            .DE_wrap > .D_font {
+                top: 0;
+                color: #af717b;
+            }
+            .DE_wrap > .E_font {
+                bottom: 0;
+                color: #803a48;
+            }
+
+            /* logo height 값(100px) 기준 */
+            /* delay 빼고 총 1.2s */
+            .logo > div > span.ani_1-1 {
+                transform: matrix(1, 0, 0, 0, 0, 0);
+                animation: ani_1-1 .5s ease-in-out 1.2s 1 alternate forwards;
+            }
+            .logo > div > span.ani_2-1 {
+                transform: matrix(1, 0, 0, 1, 0, 0);
+                animation: ani_2-1 1.2s ease-in-out .5s 1 alternate forwards;
+            }
+            .logo > div > span.ani_1-2 {
+                transform: matrix(1, 0, 0, 1, 0, 0);
+                animation: ani_1-2 .5s ease-in-out .5s 1 alternate forwards;
+            }
+            .logo > div > span.ani_2-2 {
+                transform: matrix(1, 0, 0, 0, 0, 50);
+                animation: ani_2-2 1.2s ease-in-out .5s 1 alternate forwards;
+            }
+
+            .logo > span.ani_3 {
+                animation: ani_3 1.2s ease-in-out .5s 1 alternate forwards;
+            }
+
+            @-webkit-keyframes load_opacity {
+                0% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+
+            @-webkit-keyframes ani_1-1 {
+                0% {
+                    transform: matrix(1, 0, 0, .00001, 0, -29);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+            }
+            @-webkit-keyframes ani_2-1 {
+                0% {
+                    /*transform: matrix(1, 0, 0, 1, 0, 0);*/
+                    color: #af717b;
+                }
+                41.6666% {
+                    color: #803a48;
+                }
+                58.3334% {
+                    color: #803a48;
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, .00001, 0, 29);
+                }
+            }
+            @-webkit-keyframes ani_1-2 {
+                0% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, .00001, 0, -29);
+                }
+            }
+            @-webkit-keyframes ani_2-2 {
+                0% {
+                    transform: matrix(1, 0, 0, .00001, 0, 29);
+                }
+                41.6666% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+                58.3334% {
+                    color: #803a48;
+                }
+                100% {
+                    color: #b4281E;
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+            }
+
+            @-webkit-keyframes ani_3 {
+                0% {
+                    color: #af717b;
+                }
+                50% {
+                    color: #803a48;
+                }
+                100% {
+                    color: #b4281E;
+                }
+            }
+
+            .box {
+                width: 100px;
+                height: 100px;
+                display: none;
+            }
+            .box_1 {
+                 background-color: #830a48;
+            }
+            .box_2 {
+                 background-color: #b4281e;
+            }
+            .box_3 {
+                 background-color: #ca895c;
+            }
+            .box_4 {
+                 background-color: #fb8c65;
+            }
+            .box_5 {
+                 background-color: #bd6597;
+            }
+        </style>
+
+        <title>logo_test</title>
+    </head>
+    <body>
+
+        <div class="container-fluid">
+            <h1 class="logo">
+                <div class="box box_1"></div>
+                <div class="box box_2"></div>
+                <div class="box box_3"></div>
+                <div class="box box_4"></div>
+                <div class="box box_5"></div>
+                <div class="WF_wrap">
+                    <span class="W_font ani_1-1">W</span>
+                    <span class="F_font ani_2-1">F</span>
+                </div>
+                <span class="IN_font ani_3">IN</span>
+                <div class="DE_wrap">
+                    <span class="D_font ani_1-2">D</span>
+                    <span class="E_font ani_2-2">E</span>
+                </div>
+            </h1>
+        </div>
+
+        <script>
+
+            // let logo = document.getElementsByClassName("logo")[0],
+            //     wf = document.getElementsByClassName("W_font")[0],
+            //     ff = document.getElementsByClassName("F_font")[0],
+            //     df = document.getElementsByClassName("D_font")[0],
+            //     ef = document.getElementsByClassName("E_font")[0];
+            // logo.addEventListener("click", function(event) {
+            //     wf.classList.remove("hide");
+            //     ff.classList.add("hide");
+            //     df.classList.add("hide");
+            //     ef.classList.remove("hide");
+            // });
+            // jq
+            let logo = $(".logo"),
+                wf = $(".W_font"),
+                ff = $(".F_font"),
+                df = $(".D_font"),
+                ef = $(".E_font");
+            // logo.on("click", function(event) {
+            //     console.log("good");
+            //     wf.toggleClass("hide");
+            //     ff.toggleClass("hide");
+            //     df.toggleClass("hide");
+            //     ef.toggleClass("hide");
+            // });
+
+            // $(function() {
+            //     wf.animate({
+            //         transform: "matrix(1, 0, 0, 1, 0, 0)"
+            //     }, 1000, "swing");
+            //     ff.animate({
+            //         transform: "matrix(1, 0, 0, 0, 0, 0)"
+            //     }, 1000, "swing");
+            // });
+
+        </script>
+
+    </body>
+</html>
