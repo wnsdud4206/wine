@@ -72,7 +72,6 @@ let ig = document.getElementsByClassName("input-group"),
 // inp = document.getElementsByClassName("form-control");
 
 function dm_a_refresh() {
-    console.log('1')
     for (i = 0; i < ig.length; i++) {
         let dm_a = dd_m[i].querySelectorAll("a");
         for (j = 0; j < dm_a.length; j++) {
@@ -86,7 +85,7 @@ function dm_a_refresh() {
                     a_iw_cls_ary = a_iw.getAttribute("class").split(" ")[1];
                 let a_value = this.getAttribute("value") + "_box";
 
-                alert(this.innerText)
+                // alert(this.innerText)
                 a_dd_b.innerText = this.innerText;
 
                 if (a_value === "date_box") {
@@ -121,7 +120,6 @@ function dm_a_refresh() {
 
                 topic_select();
                 // this.addEventListener("click", dm_a_event);
-                console.log("change");
 
                 // XXX
                 // return false;
@@ -689,10 +687,10 @@ function add_btn_event(event) {
 
     topic_select();
 
-    if ($("form").attr("class").split(" ").length > 1) {
-        inp_refresh();
-    }
-    $(".result_form").css("height", (36 * $(".input-group").length) + "px");
+                                            if ($("form").attr("class").split(" ").length > 1) {
+                                                inp_refresh();
+                                            }
+                                            $(".result_form").removeClass("visible_form").css("height", (36 * $(".input-group").length) + "px");
 
 }
 
@@ -707,8 +705,7 @@ function remove_all_btn_event(event) {
     $(".add_btn").on("click", add_btn_event);
 
     topic_select();
-
-    $(".result_form").css("height", "36px");
+                                            $(".result_form").css("height", "36px");
 }
 
 // }
@@ -791,27 +788,41 @@ function inp_add_cls() {
 
 function inp_refresh() {
 
-    rf.on("mouseenter mousemove", function (event) {
-        inp_stop_func();
+    // .on 메소드는 event 중첩이 돼서 refresh 해줄 때 .off 해줘야 됨
+    rf.off("mouseenter mousemove mouseleave").on("mouseenter mousemove", function (event) {
+        ai_show_event();
     }).on("mouseleave", function (event) {
-        inp_hide_func();
+        ai_hide_event();
     });
-    $(".dropdown-btn").on("focus", function (event) {
-        rf.css("overflow", "visible");
-    }).on("blur", function (event) {
-        rf.css("overflow", "hidden");
+    // $(".dropdown-btn").on("focus", function (event) {
+    //     rf.css("overflow", "visible");
+    // }).on("blur", function (event) {
+    //     rf.css("overflow", "hidden");
+    // });
+
+    $(".dropdown-btn").on("click", function (event) {
+        // if ($(".dropdown-menu").attr("class").includes("show")) rf.addClass("visible_form");
+        rf.addClass("visible_form");
     });
+
+    // if ($(".dropdown-menu").attr("class").includes("show")) {
+    //     // .dropdown-btn 을 클릭 했을 때
+    //     rf.addClass("visible_form");
+    // } else {
+    //     // .dropdown-menu 의 class show 가 없어졌을 때
+    //     rf.removeClass("visible_form");
+    // }
 
 }
 
 function ai_show_event() {
     inp_stop_func();
-    rf.off("mouseleave", inp_hide_func);
+    // rf.off("mouseleave", inp_hide_func);
 }
 
 function ai_hide_event() {
     inp_hide_func();
-    rf.on("mouseleave", inp_hide_func);
+    // rf.on("mouseleave", inp_hide_func);
 }
 
 function inp_stop_func() {
@@ -823,7 +834,8 @@ function inp_hide_func() {
     inp_hide = setTimeout(function () {
         rf.css("height", "36px");
         if (all_inp.length !== 1) {
-            $(".dropdown-btn").blur();
+            rf.removeClass("visible_form");
+            // $(".dropdown-btn").blur();
             $(".dropdown-menu").removeClass("show");
         }
     }, 1000);
@@ -1057,18 +1069,32 @@ function showArticles() {
                     inp_add_cls();
                     inp_refresh();
                     // result inp down hidden, up show
-                    $(document).on("mousewheel DOMMouseScroll", fw_wheel_event);
+                    // $(document).on("mousewheel DOMMouseScroll", fw_wheel_event);
+                    // // $(document).on("scroll", fw_wheel_event);
+                    // function fw_wheel_event(event) {
+                    //     ts = fw;
+                    //     let dy = event.originalEvent;
+                    //
+                    //     if (($(document).height() - window.innerHeight - 110) > $(document).scrollTop()) {
+                    //         if (dy.deltaY > 0) ts.addClass("hide");
+                    //         else ts.removeClass("hide");
+                    //     } else ts.removeClass("hide");
+                    // }
+                    // js
+                    window.__scrollPosition = document.documentElement.scrollTop || 0;
+                    document.onscroll = () => {
+                        let ts = document.getElementsByClassName("form_wrap")[0];
+                        let _documentY = document.documentElement.scrollTop;
+                        let _direction = _documentY - window.__scrollPosition >= 0 ? 1 : -1;
 
-                    function fw_wheel_event(event) {
-                        ts = fw;
-                        let dy = event.originalEvent;
+                        if (window.pageYOffset < (document.body.offsetHeight - window.innerHeight - 80)) {
+                            if (_direction > 0) ts.classList.add("hide");
+                            else ts.classList.remove("hide");
+                        } else ts.classList.remove("hide");
 
-                        if (dy.deltaY > 0) {
-                            ts.addClass("hide");
-                        } else {
-                            ts.removeClass("hide");
-                        }
+                        window.__scrollPosition = _documentY; // Update scrollY
                     }
+
 
                     // /logo_form_wrap
 
@@ -1100,10 +1126,19 @@ function showArticles() {
                         }
                         n_w.append(page_num_btn_html);
                     }
+
+                    // 20201121 ------------------------------------------------------------------------
+                    // if (wines_result_ary.length < 6) {
+                    //     $(".prev_wrap").hide();
+                    //     $(".next_wrap").hide();
+                    //     $(".page_btn_wrap").css("justify-content", "center");
+                    // } else {
+                    //
+                    // }
+
                     n_w_a = $(".num_wrap > a.num_btn");
 
                     p_n_a.on("click", prev_next_btn_event);
-
                     function prev_next_btn_event(event) {
                         let tc = $(this).attr("class").split(" ")[1];
                         let move_val = (Number(n_w.css("width").replace("px", "")) + Number(n_w_a.css("margin-right").replace("px", ""))),
@@ -1130,7 +1165,6 @@ function showArticles() {
                     }
 
                     n_w.on("mousewheel DOMMouseScroll", n_w_wheel_event);
-
                     function n_w_wheel_event(event) {
                         ts = $(this);
                         let dy = event.originalEvent;
@@ -1149,6 +1183,12 @@ function showArticles() {
                             if (dy.deltaY > 0) {
                                 sx = ts.scrollLeft();
                                 ts.scrollLeft(sx + ((24 + 4) * 5));
+
+                                rf.css("height", "36px");
+                                if (all_inp.length !== 1) {
+                                    // $(".dropdown-btn").blur();
+                                    $(".dropdown-menu").removeClass("show");
+                                }
                             } else {
                                 sx = ts.scrollLeft();
                                 ts.scrollLeft(sx - ((24 + 4) * 5));
@@ -1212,7 +1252,7 @@ function showArticles() {
 
             // console.log($("tr").length);
         }
-    })
+    });
 }
 
 // 리팩토링 none

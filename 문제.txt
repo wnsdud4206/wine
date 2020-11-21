@@ -11,3 +11,19 @@ form_result inp만 주제가 바뀌지 않는 문제
 6. 검색하면 .dropdown-menu position: absolute가 자동으로 생김, 이거때문?
 
 참고 : https://homzzang.com/b/html-159
+
+
+
+간단하게 수정하기
+.input-group
+get방식 post로 바꾸기
+- 여기서 필터링하는 것이 아니라 python에서 필터링 하도록
+
+dropdown-btn, input_wrap, form-control?? 각각 id 다르게 줘서 a태그 event 주기
+
+form result_form event가 문제!!!!!!!!!!
+
+
+
+
+순수함수로 코드를 짜는 것이 좋다.
