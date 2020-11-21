@@ -1,0 +1,13 @@
+맨 밑에 dropdown-menu 로 마우스 이동 시 form_result hide 실행되는 문제
+
+form_result inp만 주제가 바뀌지 않는 문제
+.dropdown-menu > a 클릭이 되지 않음
+1. 아마 부모가 overflow: hidden을 가지고 있어서
+2. * form addClass("result_form") 때문
+3. click event 다 모아서 문제 알아보기
+4. .dropdown-menu > a 에 줬던 jquery css 때문?
+5. 검색하면 .dropdown-menu 에 이상한 거 생김
+5-1. z-index가 menu보다 a가 낮음 -> a가 더 높게 해줘도 안됨
+6. 검색하면 .dropdown-menu position: absolute가 자동으로 생김, 이거때문?
+
+참고 : https://homzzang.com/b/html-159

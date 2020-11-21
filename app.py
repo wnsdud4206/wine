@@ -52,6 +52,7 @@ def read_articles():
     # 2. articles라는 키 값으로 articles 정보 보내주기
     return jsonify({'result': 'success', 'wines': wines_test})
 
+
 # debug=True 를 실제로 돌리게 될 때는 꺼야한다고 한다.
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

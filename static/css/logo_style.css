@@ -1,0 +1,354 @@
+@charset "UTF-8";
+
+h1.logo.logo_load_fadeIn {
+    animation: logo_load_fadeIn .4s ease-in-out .1s 1 alternate forwards;
+}
+.logo > .FIND_wrap,
+.logo > .WINE_wrap {
+    position: absolute;
+}
+
+.logo > .FIND_wrap {
+    display: flex;
+    z-index: 10;
+    transform: translateX(6px);
+    transition: transform .75s .5s;
+}
+
+.logo > .FIND_wrap.search_btn {
+    cursor: pointer;
+}
+.FIND_wrap > div,
+.FIND_wrap > span {
+    pointer-events: none;
+}
+
+.logo > .FIND_wrap.FIND_tlx {
+    transform: translateX(-110%);
+}
+.logo > .FIND_wrap::before,
+.logo > .FIND_wrap::after {
+    visibility: hidden;
+    font-size: 2.125em;
+    /*outline: 1px solid red;*/
+}
+.logo > .FIND_wrap::before {
+    content: "F";
+}
+.logo > .FIND_wrap::after {
+    content: "D";
+}
+.logo > .FINE_wrap,
+.logo > .WINE_wrap {
+    /*height: 100px;*/
+}
+.logo > .FINE_wrap {
+    color: #803a48;
+    position: relative;
+    opacity: 0;
+    z-index: 9;
+    transition: opacity .75s .5s;
+}
+.logo > .FINE_wrap.FINE_opa {
+    opacity: 1;
+}
+.logo > .WINE_wrap {
+    color: #b4281E;
+    opacity: 0;
+    z-index: 8;
+    transition: opacity .75s .5s, transform .75s .5s;
+}
+.logo > .WINE_wrap.WINE_opa_tlx {
+    opacity: 1;
+    transform: translateX(110%);
+}
+
+.logo span[class*="font"] {
+    font-family: 'Roboto Mono', monospace;
+    /* 크기 조절 잘 해야함, 안그럼 삐덕거림 */
+    font-size: 2.125em;
+    height: 106px;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, .4);
+
+    /* drag none */
+    -ms-user-select: none;
+    /*-moz-user-select: -moz-none;*/
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select:none;
+}
+
+.FIND_wrap > .WF_wrap, .FIND_wrap > .DE_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    position: relative;
+    /*width: 38px;*/
+}
+
+.WF_wrap > .W_font, .WF_wrap > .F_font {
+    position: absolute;
+    right: 100%;
+    overflow: hidden;
+}
+.WF_wrap > .W_font {
+    top: 0;
+    color: #b4281E;
+}
+.WF_wrap > .F_font {
+    bottom: 0;
+    /*color: #af717b;*/
+    color: #2F4662;
+}
+
+
+.IN_font {
+    color: #2F4662;
+}
+
+
+.DE_wrap > .D_font, .DE_wrap > .E_font {
+    position: absolute;
+    overflow: hidden;
+}
+.DE_wrap > .D_font {
+    top: 0;
+    color: #2F4662;
+}
+.DE_wrap > .E_font {
+    bottom: 0;
+    color: #803a48;
+}
+
+@-webkit-keyframes logo_load_fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* 오프닝 그룹 */
+.FIND_wrap > div > span.W_ani {
+    transform: matrix(1, 0, 0, 0, 0, 0);
+    animation: W_ani .3s 2s 1 alternate forwards;
+}
+.FIND_wrap > div > span.F_ani {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    animation: F_ani .8s 1.5s 1 alternate forwards;
+}
+.FIND_wrap > span.IN_ani {
+    animation: IN_ani .8s 1.5s 1 alternate forwards;
+}
+.FIND_wrap > div > span.D_ani {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    animation: D_ani .3s 1.5s 1 alternate forwards;
+}
+.FIND_wrap > div > span.E_ani {
+    transform: matrix(1, 0, 0, 0, 0, 53);
+    animation: E_ani .8s 1.5s 1 alternate forwards;
+}
+
+@-webkit-keyframes W_ani {
+    0% {
+        transform: matrix(1, 0, 0, .00001, 0, -30);
+    }
+    100% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+}
+@-webkit-keyframes F_ani {
+    0% {
+        /*transform: matrix(1, 0, 0, 1, 0, 0);*/
+        color: #2F4662;
+    }
+    41.6666% {
+        color: #803a48;
+    }
+    58.3334% {
+        color: #803a48;
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+    100% {
+        transform: matrix(1, 0, 0, .00001, 0, 30);
+    }
+}
+@-webkit-keyframes IN_ani {
+    0% {
+        color: #2F4662;
+    }
+    50% {
+        color: #803a48;
+    }
+    100% {
+        color: #b4281E;
+    }
+}
+@-webkit-keyframes D_ani {
+    0% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+    100% {
+        transform: matrix(1, 0, 0, .00001, 0, -30);
+    }
+}
+@-webkit-keyframes E_ani {
+    0% {
+        transform: matrix(1, 0, 0, .00001, 0, 30);
+    }
+    41.6666% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+    58.3334% {
+        color: #803a48;
+    }
+    100% {
+        color: #b4281E;
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+}
+
+
+/* search 그룹 */
+.FIND_wrap > div > span.W_sch {
+    transform: matrix(1, 0, 0, 0, 0, 0);
+    /*animation: W_ani .2s 0s 1 alternate-reverse forwards;*/
+    animation: W_sch .3s 0s 1 alternate forwards;
+}
+.FIND_wrap > div > span.F_sch {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    /*animation: F_ani .4s 0s 1 alternate-reverse forwards;*/
+    animation: F_sch .3s 0s 1 alternate forwards;
+}
+.FIND_wrap > span.IN_sch {
+    /*animation: IN_ani .4s 0s 1 alternate-reverse forwards;*/
+    animation: IN_sch .3s 0s 1 alternate forwards;
+}
+.FIND_wrap > div > span.D_sch {
+    transform: matrix(1, 0, 0, 0, 0, -53);
+    /*animation: D_ani .2s 0s 1 alternate-reverse forwards;*/
+    animation: D_sch .3s 0s 1 alternate forwards;
+}
+.FIND_wrap > div > span.E_sch {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    /*animation: E_ani .2s 0s 1 alternate-reverse forwards;*/
+    animation: E_sch .3s 0s 1 alternate forwards;
+}
+
+@-webkit-keyframes W_sch {
+    0% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+    100% {
+        transform: matrix(1, 0, 0, .00001, 0, -30);
+    }
+}
+@-webkit-keyframes F_sch {
+    0% {
+        transform: matrix(1, 0, 0, .00001, 0, 30);
+        color: #803a48;
+    }
+    100% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+        color: #2F4662;
+    }
+}
+@-webkit-keyframes IN_sch {
+    0% {
+        color: #b4281E;
+    }
+    50% {
+        color: #803a48;
+    }
+    100% {
+        color: #2F4662;
+    }
+}
+@-webkit-keyframes D_sch {
+    0% {
+        transform: matrix(1, 0, 0, .00001, 0, -30);
+    }
+    100% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+}
+@-webkit-keyframes E_sch {
+    0% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+        color: #b4281E;
+    }
+    100% {
+        color: #803a48;
+        transform: matrix(1, 0, 0, .00001, 0, 30);
+    }
+}
+
+/* search hide 그룹 */
+.FIND_wrap > div > span.W_sch_hide {
+    transform: matrix(1, 0, 0, 0, 0, 0);
+    animation: W_sch_hide .3s 0s 1 alternate forwards;
+}
+.FIND_wrap > div > span.F_sch_hide {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    animation: F_sch_hide .3s 0s 1 alternate forwards;
+}
+.FIND_wrap > span.IN_sch_hide {
+    animation: IN_sch_hide .3s 0s 1 alternate forwards;
+}
+.FIND_wrap > div > span.D_sch_hide {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    animation: D_sch_hide .3s 0s 1 alternate forwards;
+}
+.FIND_wrap > div > span.E_sch_hide {
+    transform: matrix(1, 0, 0, 0, 0, 53);
+    animation: E_sch_hide .3s 0s 1 alternate forwards;
+}
+@-webkit-keyframes W_sch_hide {
+    0% {
+        transform: matrix(1, 0, 0, .00001, 0, -30);
+    }
+    100% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+}
+@-webkit-keyframes F_sch_hide {
+    0% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+        color: #2F4662;
+    }
+    100% {
+        transform: matrix(1, 0, 0, .00001, 0, 30);
+        color: #803a48;
+    }
+}
+@-webkit-keyframes IN_sch_hide {
+    0% {
+        color: #2F4662;
+    }
+    50% {
+        color: #803a48;
+    }
+    100% {
+        color: #b4281E;
+    }
+}
+@-webkit-keyframes D_sch_hide {
+    0% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+    100% {
+        transform: matrix(1, 0, 0, .00001, 0, -30);
+    }
+}
+@-webkit-keyframes E_sch_hide {
+    0% {
+        transform: matrix(1, 0, 0, .00001, 0, 30);
+        color: #803a48;
+    }
+    100% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+        color: #b4281E;
+    }
+}

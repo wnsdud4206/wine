@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
     <head>
         <meta charset="UTF-8">
+        <!-- font -->
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
+
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -9,9 +12,6 @@
 <!--        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->     <!-- slim을 지우면 bootstrap이 안먹힘 -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-        <!-- font -->
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
 
         <style>
             * {
@@ -29,23 +29,105 @@
                 flex-direction: column;
                 justify-content: center;
                 align-content: center;
+                padding: 0;
             }
 
-            .container-fluid > .logo {
-                /*outline: 1px solid orange;*/
+            .container-fluid > .logo_form_wrap {
+                height: 106px;
+            }
+
+            .logo_form_wrap > h1.logo {          /* 너비를 글씨 크기에 맞춰야함 */
+                /*outline: 1px solid yellow;*/
+                /*text-align: center;*/
+                outline: 1px solid orange;
                 display: flex;
                 justify-content: center;
                 align-content: center;
                 opacity: 0;
-                animation: load_opacity .4s ease-in-out .1s 1 alternate forwards;
+
+                position: relative;
+                transition: opacity .4s;
+            }
+            h1.logo.logo_load_fadeIn {
+                opacity: 1;
+                /*animation: logo_load_fadeIn .4s ease-in-out .1s 1 alternate forwards;*/
+            }
+            .logo > .FIND_wrap,
+            .logo > .WINE_wrap {
+                position: absolute;
             }
 
-            .logo span[class*="font"] {
-                /* 크기 조절 잘 해야함, 안그럼 삐덕거림 */
-                font-size: 2em;
-                height: 100px;
+            .logo > .FIND_wrap {
+                display: flex;
+                z-index: 10;
+                transform: translateX(6px);
+                transition: transform .75s .5s;
             }
-            .logo > .WF_wrap, .logo > .DE_wrap {
+
+            .logo > .FIND_wrap.search_btn {
+                cursor: pointer;
+            }
+            .FIND_wrap > div,
+            .FIND_wrap > span {
+                pointer-events: none;
+            }
+
+            .logo > .FIND_wrap.FIND_tlx {
+                transform: translateX(-110%);
+            }
+            .logo > .FIND_wrap::before,
+            .logo > .FIND_wrap::after {
+                visibility: hidden;
+                font-size: 2.125em;
+                /*outline: 1px solid red;*/
+            }
+            /*.logo > .FIND_wrap::before {*/
+            /*    content: "FI";*/
+            /*}*/
+            /*.logo > .FIND_wrap::after {*/
+            /*    content: "ND";*/
+            /*}*/
+            .logo > .FINE_wrap,
+            .logo > .WINE_wrap {
+                /*height: 100px;*/
+            }
+            .logo > .FINE_wrap {
+                color: #803a48;
+                position: relative;
+                opacity: 0;
+                z-index: 9;
+                transition: opacity .5s .5s;
+            }
+            .logo > .FINE_wrap.FINE_opa {
+                opacity: 1;
+            }
+            .logo > .WINE_wrap {
+                color: #b4281E;
+                opacity: 0;
+                z-index: 8;
+                transition: opacity .5s .5s, transform .75s .5s;
+            }
+            .logo > .WINE_wrap.WINE_opa_tlx {
+                opacity: 1;
+                transform: translateX(110%);
+            }
+
+            .FIND_wrap > .first_wrap:before,
+            .FIND_wrap > .second_wrap:before,
+            .FIND_wrap > .third_wrap:before,
+            .FIND_wrap > .fourth_wrap:before {
+                content: "W";
+                font-family: 'Roboto Mono', monospace;
+                /* 크기 조절 잘 해야함, 안그럼 삐덕거림 */
+                font-size: 2.125em;
+                height: 106px;
+                visibility: hidden;
+            }
+
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap,
+            .FIND_wrap > .second_wrap > .WINE.I_wrap,
+            .FIND_wrap > .third_wrap > .WINE.N_wrap,
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -54,68 +136,63 @@
                 /*width: 38px;*/
             }
 
-            .logo > .WF_wrap {
-            }
-            .logo > .DE_wrap {
+            .WF_wrap > .W_font, .WF_wrap > .F_font,
+            .I_wrap > .I_font, .N_wrap > .N_font,
+            .DE_wrap > .D_font, .DE_wrap > .E_font{
+                /*position: absolute;*/
+                /*overflow: hidden;*/
             }
 
-            .WF_wrap > .W_font, .WF_wrap > .F_font {
-                position: absolute;
-                right: 100%;
-                overflow: hidden;
+            /* 모든 span */
+            .logo span[class*="font"] {
+                font-family: 'Roboto Mono', monospace;
+                /* 크기 조절 잘 해야함, 안그럼 삐덕거림 */
+                font-size: 2.125em;
+                height: 106px;
+                text-shadow: 0 2px 3px rgba(0, 0, 0, .4);
+
+                /* drag none */
+                -ms-user-select: none;
+                /*-moz-user-select: -moz-none;*/
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                user-select:none;
             }
-            .WF_wrap > .W_font {
-                top: 0;
+            /* .FIND_wrap 안의 모든 span */
+            .logo > .FIND_wrap span {
+                bottom: 0;
+                position: absolute;
+                /*overflow: hidden;*/
+            }
+
+            /* color: #2F4662; - 파, color: #803a48; - 보, color: #b4281E; - 빨 */
+            /* WINE group */
+            .WINE.WF_wrap > .W_font {
+                transform: matrix(1, 0, 0, 1, 0, 0);
                 color: #b4281E;
             }
-            .WF_wrap > .F_font {
-                bottom: 0;
-                color: #af717b;
+            .WINE.WF_wrap > .F_font {
+                transform: matrix(1, 0, 0, 0, 0, 0);
+                /*color: #b4281E;*/
+                color: #b4281E;
             }
-
-
-            .IN_font {
-                color: #af717b;
+            .WINE.I_wrap > .I_font,
+            .WINE.N_wrap > .N_font{
+                color: #b4281E;
+                /*color: #2F4662;*/
             }
-
-
-            .DE_wrap > .D_font, .DE_wrap > .E_font {
-                position: absolute;
-                overflow: hidden;
-            }
-            .DE_wrap > .D_font {
-                top: 0;
-                color: #af717b;
-            }
-            .DE_wrap > .E_font {
-                bottom: 0;
+            .WINE.DE_wrap > .D_font {
+                transform: matrix(1, 0, 0, 0, 0, 0);
+                /*color: #b4281E;*/
                 color: #803a48;
             }
-
-            /* logo height 값(100px) 기준 */
-            /* delay 빼고 총 1.2s */
-            .logo > div > span.ani_1-1 {
-                transform: matrix(1, 0, 0, 0, 0, 0);
-                animation: ani_1-1 .5s ease-in-out 1.2s 1 alternate forwards;
-            }
-            .logo > div > span.ani_2-1 {
+            .WINE.DE_wrap > .E_font {
                 transform: matrix(1, 0, 0, 1, 0, 0);
-                animation: ani_2-1 1.2s ease-in-out .5s 1 alternate forwards;
-            }
-            .logo > div > span.ani_1-2 {
-                transform: matrix(1, 0, 0, 1, 0, 0);
-                animation: ani_1-2 .5s ease-in-out .5s 1 alternate forwards;
-            }
-            .logo > div > span.ani_2-2 {
-                transform: matrix(1, 0, 0, 0, 0, 50);
-                animation: ani_2-2 1.2s ease-in-out .5s 1 alternate forwards;
+                color: #b4281E;
+                /*color: #803a48;*/
             }
 
-            .logo > span.ani_3 {
-                animation: ani_3 1.2s ease-in-out .5s 1 alternate forwards;
-            }
-
-            @-webkit-keyframes load_opacity {
+            @-webkit-keyframes logo_load_fadeIn {
                 0% {
                     opacity: 0;
                 }
@@ -124,59 +201,158 @@
                 }
             }
 
-            @-webkit-keyframes ani_1-1 {
+            /* 오프닝 그룹 */
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap > span.W_ani {
+                transform: matrix(1, 0, 0, 0, 0, 0);
+                color: #803a48;
+                animation: top_ani .2s 1.9s 1 ease-in alternate forwards,
+                    col_2 .2s 1.9s 1 alternate forwards;
+            }
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap > span.F_ani {
+                transform: matrix(1, 0, 0, 1, 0, 0);
+                color: #2F4662;
+                /* .8s 1.5s - first: col */
+                animation: col_1 .2s 1.5s 1 alternate forwards,
+                    bottom_ani .2s 1.9s 1 ease-in alternate forwards,
+                    col_2 .2s 1.9s 1 alternate forwards;
+            }
+            .FIND_wrap > .second_wrap > .WINE.I_wrap > span.I_ani,
+            .FIND_wrap > .third_wrap > .WINE.N_wrap > span.N_ani {
+                color: #2F4662;
+                animation: col_1 .2s 1.5s 1 alternate forwards,
+                    col_2 .2s 1.9s 1 alternate forwards;
+            }
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap > span.D_ani {
+                transform: matrix(1, 0, 0, 1, 0, 0);
+                color: #2F4662;
+                animation: col_1 .2s 1.5s 1 alternate forwards,
+                    top_ani .2s 1.5s 1 ease-in alternate-reverse forwards;
+            }
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap > span.E_ani {
+                transform: matrix(1, 0, 0, 0, 0, 0);
+                color: #2F4662;
+                animation: col_1 .2s 1.5s 1 alternate forwards,
+                    bottom_ani .2s 1.5s 1 ease-in alternate-reverse forwards,
+                    col_2 .2s 1.9s 1 alternate forwards;
+            }
+
+            /* search 그룹 */
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap > span.W_sch {
+                animation: top_ani .2s 0s 1 ease-in alternate-reverse forwards,
+                    col_2 .1s 0s 1 alternate-reverse forwards,
+                    col_1 .1s .1s 1 alternate-reverse forwards;
+            }
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap > span.F_sch {
+                animation: bottom_ani .2s 0s 1 ease-in alternate-reverse forwards,
+                    col_2 .1s 0s 1 alternate-reverse forwards,
+                    col_1 .1s .1s 1 alternate-reverse forwards;
+            }
+            .FIND_wrap > .second_wrap > .WINE.I_wrap > span.I_sch,
+            .FIND_wrap > .third_wrap > .WINE.N_wrap > span.N_sch {
+                animation: col_2 .1s 0s 1 alternate-reverse forwards,
+                    col_1 .1s .1s 1 alternate-reverse forwards;
+            }
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap > span.D_sch {
+                animation: top_ani .2s 0s 1 ease-in alternate forwards,
+                    col_2 .1s 0s 1 alternate-reverse forwards,
+                    col_1 .1s .1s 1 alternate-reverse forwards;
+            }
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap > span.E_sch {
+                animation: bottom_ani .2s 0s 1 ease-in alternate forwards,
+                    col_2 .1s 0s 1 alternate-reverse forwards,
+                    col_1 .1s .1s 1 alternate-reverse forwards;
+            }
+
+            /* slide_ani */
+            @-webkit-keyframes top_ani {
                 0% {
-                    transform: matrix(1, 0, 0, .00001, 0, -29);
+                    transform: matrix(1, 0, 0, .00001, 0, -30);
                 }
                 100% {
                     transform: matrix(1, 0, 0, 1, 0, 0);
                 }
             }
-            @-webkit-keyframes ani_2-1 {
+            @-webkit-keyframes bottom_ani {
                 0% {
-                    /*transform: matrix(1, 0, 0, 1, 0, 0);*/
-                    color: #af717b;
+                    transform: matrix(1, 0, 0, 1, 0, 0);
                 }
-                41.6666% {
+                100% {
+                    transform: matrix(1, 0, 0, .00001, 0, 30);
+                }
+            }
+            /* col_ani */
+            @-webkit-keyframes col_1 {
+                0% {
+                    color: #2F4662;
+                }
+                100% {
                     color: #803a48;
                 }
-                58.3334% {
-                    color: #803a48;
-                    transform: matrix(1, 0, 0, 1, 0, 0);
-                }
-                100% {
-                    transform: matrix(1, 0, 0, .00001, 0, 29);
-                }
             }
-            @-webkit-keyframes ani_1-2 {
+            @-webkit-keyframes col_2 {
                 0% {
-                    transform: matrix(1, 0, 0, 1, 0, 0);
-                }
-                100% {
-                    transform: matrix(1, 0, 0, .00001, 0, -29);
-                }
-            }
-            @-webkit-keyframes ani_2-2 {
-                0% {
-                    transform: matrix(1, 0, 0, .00001, 0, 29);
-                }
-                41.6666% {
-                    transform: matrix(1, 0, 0, 1, 0, 0);
-                }
-                58.3334% {
                     color: #803a48;
                 }
                 100% {
                     color: #b4281E;
-                    transform: matrix(1, 0, 0, 1, 0, 0);
                 }
             }
 
-            @-webkit-keyframes ani_3 {
+            /* search hide 그룹 */
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap > span.W_sch_hide {
+                animation: top_ani_hide .2s 0s ease-in 1 alternate forwards,
+                    col_1_hide .1s 0s 1 alternate forwards,
+                    col_2_hide .1s .1s 1 alternate forwards;
+            }
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap > span.F_sch_hide {
+                animation: bottom_ani_hide .2s 0s ease-in 1 alternate forwards,
+                    col_1_hide .1s 0s 1 alternate forwards,
+                    col_2_hide .1s .1s 1 alternate forwards;
+            }
+            .FIND_wrap > .second_wrap > .WINE.I_wrap > span.I_sch_hide,
+            .FIND_wrap > .third_wrap > .WINE.N_wrap > span.N_sch_hide {
+                animation: col_1_hide .1s 0s 1 alternate forwards,
+                    col_2_hide .1s .1s 1 alternate forwards;
+            }
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap > span.D_sch_hide {
+                animation: top_ani_hide .2s 0s 1 ease-in alternate-reverse forwards,
+                    col_1_hide .1s 0s 1 alternate forwards,
+                    col_2_hide .1s .1s 1 alternate forwards;
+            }
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap > span.E_sch_hide {
+                animation: bottom_ani_hide .2s 0s 1 ease-in alternate-reverse forwards,
+                    col_1_hide .1s 0s 1 alternate forwards,
+                    col_2_hide .1s .1s 1 alternate forwards;
+            }
+
+            /* slide_ani */
+            @-webkit-keyframes top_ani_hide {
                 0% {
-                    color: #af717b;
+                    transform: matrix(1, 0, 0, .00001, 0, -30);
                 }
-                50% {
+                100% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+            }
+            @-webkit-keyframes bottom_ani_hide {
+                0% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, .00001, 0, 30);
+                }
+            }
+            /* col_ani */
+            @-webkit-keyframes col_1_hide {
+                0% {
+                    color: #2F4662;
+                }
+                100% {
+                    color: #803a48;
+                }
+            }
+            @-webkit-keyframes col_2_hide {
+                0% {
                     color: #803a48;
                 }
                 100% {
@@ -184,13 +360,339 @@
                 }
             }
 
-            .box {
+
+            /*.first_wrap,*/
+            /*.second_wrap,*/
+            /*.third_wrap,*/
+            /*.fourth_wrap {*/
+            /*    outline: 1px solid red;*/
+            /*}*/
+
+            /*.first_wrap > .B_wrap,*/
+            /*.second_wrap > .A_wrap,*/
+            /*.third_wrap > .C_wrap,*/
+            /*.fourth_wrap > .K_wrap {*/
+            /*    outline: 1px solid blue;*/
+            /*}*/
+            /* BACK */
+            .first_wrap > .BACK.B_wrap {
+                transform: matrix(1, 0, 0, .00001, 0, -82);
+            }
+            .second_wrap > .BACK.A_wrap {
+                transform: matrix(1, 0, 0, .00001, 0, -22);
+            }
+            .third_wrap > .BACK.C_wrap {
+                transform: matrix(1, 0, 0, .00001, 0, -82);
+            }
+            .fourth_wrap > .BACK.K_wrap {
+                transform: matrix(1, 0, 0, .00001, 0, -22);
+            }
+
+            /* BACK 그룹 */
+            .FIND_wrap > .first_wrap > .BACK.B_wrap.B_back,
+            .FIND_wrap > .third_wrap > .BACK.C_wrap.C_back {
+                animation: top_BACK .2s 0s 1 ease-in alternate forwards;
+            }
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap.WF_back,
+            .FIND_wrap > .third_wrap > .WINE.N_wrap.N_back {
+                animation: bottom_BACK .2s 0s 1 ease-in alternate forwards;
+            }
+            .FIND_wrap > .second_wrap > .BACK.A_wrap.A_back,
+            .FIND_wrap > .fourth_wrap > .BACK.K_wrap.K_back {
+                animation: bottom_BACK .2s 0s 1 ease-in alternate-reverse forwards;
+            }
+            .FIND_wrap > .second_wrap > .WINE.I_wrap.I_back,
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap.DE_back {
+                animation: top_BACK .2s 0s 1 ease-in alternate-reverse forwards;
+            }
+            /* BACK_ani */
+            @-webkit-keyframes top_BACK {
+                0% {
+                    transform: matrix(1, 0, 0, .00001, 0, -82);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+            }
+            @-webkit-keyframes bottom_BACK {
+                0% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, .00001, 0, -22);
+                }
+            }
+
+            /* BACK_hide 그룹 */
+            .FIND_wrap > .first_wrap > .BACK.B_wrap.B_back_hide,
+            .FIND_wrap > .third_wrap > .BACK.C_wrap.C_back_hide {
+                animation: top_BACK_hide .2s 0s 1 ease-in alternate-reverse forwards;
+            }
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap.WF_back_hide,
+            .FIND_wrap > .third_wrap > .WINE.N_wrap.N_back_hide {
+                animation: bottom_BACK_hide .2s 0s 1 ease-in alternate-reverse forwards;
+            }
+            .FIND_wrap > .second_wrap > .BACK.A_wrap.A_back_hide,
+            .FIND_wrap > .fourth_wrap > .BACK.K_wrap.K_back_hide {
+                animation: bottom_BACK_hide .2s 0s 1 ease-in alternate forwards;
+            }
+            .FIND_wrap > .second_wrap > .WINE.I_wrap.I_back_hide,
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap.DE_back_hide {
+                animation: top_BACK_hide .2s 0s 1 ease-in alternate forwards;
+            }
+            /* BACK_hide_ani */
+            @-webkit-keyframes top_BACK_hide {
+                0% {
+                    transform: matrix(1, 0, 0, .00001, 0, -82);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+            }
+            @-webkit-keyframes bottom_BACK_hide {
+                0% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, .00001, 0, -22);
+                }
+            }
+
+
+            /* DOWN */
+            .first_wrap > .DOWN.D_wrap,
+            .second_wrap > .DOWN.O_wrap,
+            .third_wrap > .DOWN.W_wrap,
+            .fourth_wrap > .DOWN.N_wrap{
+                transform: matrix(1, 0, 0, .00001, 0, -82);
+            }
+
+            /* DOWN 그룹 */
+            .FIND_wrap > .first_wrap > .DOWN.D_wrap.D_down,
+            .FIND_wrap > .second_wrap > .DOWN.O_wrap.O_down,
+            .FIND_wrap > .third_wrap > .DOWN.W_wrap.W_down,
+            .FIND_wrap > .fourth_wrap > .DOWN.N_wrap.N_down {
+                animation: top_DOWN .15s 0s 1 ease-in alternate forwards;
+            }
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap.WF_down,
+            .FIND_wrap > .second_wrap > .WINE.I_wrap.I_down,
+            .FIND_wrap > .third_wrap > .WINE.N_wrap.N_down,
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap.DE_down {
+                animation: bottom_DOWN .15s 0s 1 ease-in alternate forwards;
+            }
+            /* DOWN_ani */
+            @-webkit-keyframes top_DOWN {
+                0% {
+                    transform: matrix(1, 0, 0, .00001, 0, -82);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+            }
+            @-webkit-keyframes bottom_DOWN {
+                0% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, .00001, 0, -22);
+                }
+            }
+
+            /* DOWN_hide 그룹 */
+            .FIND_wrap > .first_wrap > .DOWN.D_wrap.D_down_hide,
+            .FIND_wrap > .second_wrap > .DOWN.O_wrap.O_down_hide,
+            .FIND_wrap > .third_wrap > .DOWN.W_wrap.W_down_hide,
+            .FIND_wrap > .fourth_wrap > .DOWN.N_wrap.N_down_hide {
+                animation: top_DOWN_hide .15s 0s 1 ease-in alternate-reverse forwards;
+            }
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap.WF_down_hide,
+            .FIND_wrap > .second_wrap > .WINE.I_wrap.I_down_hide,
+            .FIND_wrap > .third_wrap > .WINE.N_wrap.N_down_hide,
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap.DE_down_hide {
+                animation: bottom_DOWN_hide .15s 0s 1 ease-in alternate-reverse forwards;
+            }
+            /* DOWN_hide_ani */
+            @-webkit-keyframes top_DOWN_hide {
+                0% {
+                    transform: matrix(1, 0, 0, .00001, 0, -82);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+            }
+            @-webkit-keyframes bottom_DOWN_hide {
+                0% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, .00001, 0, -22);
+                }
+            }
+
+            /* UPUP */
+            .first_wrap > .UPUP.U_wrap,
+            .second_wrap > .UPUP.P_wrap,
+            .third_wrap > .UPUP.U_wrap,
+            .fourth_wrap > .UPUP.P_wrap {
+                transform: matrix(1, 0, 0, .00001, 0, -22);
+            }
+
+            /* UPUP 그룹 */
+            .FIND_wrap > .first_wrap > .UPUP.U_wrap.U_upup,
+            .FIND_wrap > .second_wrap > .UPUP.P_wrap.P_upup,
+            .FIND_wrap > .third_wrap > .UPUP.U_wrap.U_upup,
+            .FIND_wrap > .fourth_wrap > .UPUP.P_wrap.P_upup {
+                animation: bottom_UPUP .15s 0s 1 ease-in alternate-reverse forwards;
+            }
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap.WF_upup,
+            .FIND_wrap > .second_wrap > .WINE.I_wrap.I_upup,
+            .FIND_wrap > .third_wrap > .WINE.N_wrap.N_upup,
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap.DE_upup {
+                animation: top_UPUP .15s 0s 1 ease-in alternate-reverse forwards;
+            }
+            /* UPUP_ani */
+            @-webkit-keyframes top_UPUP {
+                0% {
+                    transform: matrix(1, 0, 0, .00001, 0, -82);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+            }
+            @-webkit-keyframes bottom_UPUP {
+                0% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, .00001, 0, -22);
+                }
+            }
+
+            /* UPUP_hide 그룹 */
+            .FIND_wrap > .first_wrap > .UPUP.U_wrap.U_upup_hide,
+            .FIND_wrap > .second_wrap > .UPUP.P_wrap.P_upup_hide,
+            .FIND_wrap > .third_wrap > .UPUP.U_wrap.U_upup_hide,
+            .FIND_wrap > .fourth_wrap > .UPUP.P_wrap.P_upup_hide {
+                animation: bottom_UPUP_hide .15s 0s 1 ease-in alternate forwards;
+            }
+            .FIND_wrap > .first_wrap > .WINE.WF_wrap.WF_upup_hide,
+            .FIND_wrap > .second_wrap > .WINE.I_wrap.I_upup_hide,
+            .FIND_wrap > .third_wrap > .WINE.N_wrap.N_upup_hide,
+            .FIND_wrap > .fourth_wrap > .WINE.DE_wrap.DE_upup_hide {
+                animation: top_UPUP_hide .15s 0s 1 ease-in alternate forwards;
+            }
+            /* UPUP_hide_ani */
+            @-webkit-keyframes top_UPUP_hide {
+                0% {
+                    transform: matrix(1, 0, 0, .00001, 0, -82);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+            }
+            @-webkit-keyframes bottom_UPUP_hide {
+                0% {
+                    transform: matrix(1, 0, 0, 1, 0, 0);
+                }
+                100% {
+                    transform: matrix(1, 0, 0, .00001, 0, -22);
+                }
+            }
+
+
+
+            #hover_box {
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: flex;
+            }
+            .h_box {
+                text-align: center;
+                width: 80px;
+                height: 80px;
+                outline: 1px solid black;
+            }
+            .h_box:hover {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+            #DOWN_UPUP {
+                overflow-X: hidden;
+                overflow-Y: scroll;
+
+            }
+            #DOWN_UPUP > #DOWN_UPUP_child {
+                width: 100%;
+                height: 1000%;
+            }
+
+            /* test */
+            /*#OOPS {*/
+            /*    animation: none;*/
+            /*}*/
+
+            /* animation 말고 transform, transition 을 이용해서? */
+
+            #example-element {
                 width: 100px;
                 height: 100px;
-                display: none;
+                    transform-style: preserve-3d;       /* 이게 없으면 3d처럼 안됨 */
+                    transition: transform 1.5s;
+                    transform: rotate3d(0, 0, 0, 0deg);     /* 1(x), 2(y), 3(y) 번째는 값이 어떻든 양수, 음수냐에 따라서 방향이 달라진다 */
+                position: fixed;
+                top: 20%;
+                left: 40%;
+                /*display: none;*/
             }
-            .box_1 {
-                 background-color: #830a48;
+            #example-element:focus {
+                transform: rotate3d(.5, 0, 0, 90deg);
+                            /*matrix3d(*/
+                            /*    1, 0, 0, 0,         !* scalX, skewX, ,  *!*/
+                            /*    0, 1, 0, 0,         !* skewY, scalY, ,  *!*/
+                            /*    0, 0, 1, 0,         !* , , scalZ,  *!*/
+                            /*    0, 0, 0, 1        !* lateX, lateY, ,  lateZ*!*/
+                            /*);*/
+            }
+            .face {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                    backface-visibility: inherit;
+                font-size: 60px;
+                color: #fff;
+            }
+
+            .front {
+                background: rgba(90,90,90,.7);
+                    transform: translateZ(50px);
+            }
+
+            .back {
+                background: rgba(0,210,0,.7);
+                    transform: rotateY(180deg) translateZ(50px);
+            }
+
+            .right {
+                background: rgba(210,0,0,.7);
+                    transform: rotateY(90deg) translateZ(50px);
+            }
+
+            .left {
+                background: rgba(0,0,210,.7);
+                    transform: rotateY(-90deg) translateZ(50px);
+            }
+
+            .top {
+                background: rgba(210,210,0,.7);
+                    transform: rotateX(90deg) translateZ(50px);
+            }
+
+            .bottom {
+                background: rgba(210,0,210,.7);
+                    transform: rotateX(-90deg) translateZ(50px);
             }
             .box_2 {
                  background-color: #b4281e;
@@ -211,25 +713,278 @@
     <body>
 
         <div class="container-fluid">
-            <h1 class="logo">
-                <div class="box box_1"></div>
-                <div class="box box_2"></div>
-                <div class="box box_3"></div>
-                <div class="box box_4"></div>
-                <div class="box box_5"></div>
-                <div class="WF_wrap">
-                    <span class="W_font ani_1-1">W</span>
-                    <span class="F_font ani_2-1">F</span>
-                </div>
-                <span class="IN_font ani_3">IN</span>
-                <div class="DE_wrap">
-                    <span class="D_font ani_1-2">D</span>
-                    <span class="E_font ani_2-2">E</span>
-                </div>
-            </h1>
+            <div class="logo_form_wrap">
+<!--                <h1 class="logo logo_load_fadeIn">-->
+<!--                    <div class="FIND_wrap FIND_tlx">-->
+<!--                        <div class="WF_wrap">-->
+<!--                            <span class="W_font W_ani">W</span>-->
+<!--                            <span class="F_font F_ani">F</span>-->
+<!--                        </div>-->
+<!--                        <span class="IN_font IN_ani">IN</span>-->
+<!--                        <div class="DE_wrap">-->
+<!--                            <span class="D_font D_ani">D</span>-->
+<!--                            <span class="E_font E_ani">E</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="FINE_wrap FINE_opa">-->
+<!--                        <span class="FINE_font">FINE</span>-->
+<!--                    </div>-->
+
+<!--                    <div class="WINE_wrap WINE_opa_tlx">-->
+<!--                        <span class="WINE_font">WINE</span>-->
+<!--                    </div>-->
+<!--                </h1>-->
+                <!-- BACK DOWN UPUP NOPE NONE NEXT PREV(ious) OOPS -->
+                <h1 class="logo">
+                    <div class="FIND_wrap FIND_tlx">
+
+                        <!-- 일일이 추가해 주는 것이 아니라 js로 class 이름을 가져와 내용을 수정하여 이벤트를 발생하는 것이 더 좋을 듯 -->
+                        <div class="first_wrap">
+                            <div class="BACK B_wrap">
+                                <span class="B_font B_ani">B</span>
+                            </div>
+                            <div class="DOWN D_wrap">
+                                <span class="D_font D_ani">D</span>
+                            </div>
+                            <div class="UPUP U_wrap">
+                                <span class="U_font U_ani">U</span>
+                            </div>
+                            <div class="WINE WF_wrap">
+                                <span class="W_font W_ani">W</span>
+                                <span class="F_font F_ani">F</span>
+                            </div>
+                        </div>
+
+                        <div class="second_wrap">
+                            <div class="BACK A_wrap">
+                                <span class="A_font A_ani">A</span>
+                            </div>
+                            <div class="DOWN O_wrap">
+                                <span class="O_font O_ani">O</span>
+                            </div>
+                            <div class="UPUP P_wrap">
+                                <span class="P_font P_ani">P</span>
+                            </div>
+                            <div class="WINE I_wrap">
+                                <span class="I_font I_ani">I</span>
+                            </div>
+                        </div>
+
+                        <div class="third_wrap">
+                            <div class="BACK C_wrap">
+                                <span class="C_font C_ani">C</span>
+                            </div>
+                            <div class="DOWN W_wrap">
+                                <span class="W_font W_ani">W</span>
+                            </div>
+                            <div class="UPUP U_wrap">
+                                <span class="U_font U_ani">U</span>
+                            </div>
+                            <div class="WINE N_wrap">
+                                <span class="N_font N_ani">N</span>
+                            </div>
+                        </div>
+
+                        <div class="fourth_wrap">
+                            <div class="BACK K_wrap">
+                                <span class="K_font K_ani">K</span>
+                            </div>
+                            <div class="DOWN N_wrap">
+                                <span class="N_font N_ani">N</span>
+                            </div>
+                            <div class="UPUP P_wrap">
+                                <span class="P_font P_ani">P</span>
+                            </div>
+                            <div class="WINE DE_wrap">
+                                <span class="D_font D_ani">D</span>
+                                <span class="E_font E_ani">E</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="FINE_wrap FINE_opa">
+                        <span class="FINE_font">FINE</span>
+                    </div>
+
+                    <div class="WINE_wrap WINE_opa_tlx">
+                        <span class="WINE_font">WINE</span>
+                    </div>
+                </h1>
+            </div>
+        </div>
+
+        <section id="example-element" tabindex="0">
+            <div class="face front">1</div>
+            <div class="face back">2</div>
+            <div class="face right">3</div>
+            <div class="face left">4</div>
+            <div class="face top">5</div>
+            <div class="face bottom">6</div>
+        </section>
+
+        <div id="hover_box">
+            <div class="h_box" id="BACK">BACK</div>
+            <div class="h_box" id="DOWN_UPUP">DOWN<div id="DOWN_UPUP_child"></div>UPUP</div>
+            <div class="h_box" id="NOPE">NOPE</div>
+            <div class="h_box" id="NONE">NONE</div>
+            <div class="h_box" id="NEXT">NEXT</div>
+            <div class="h_box" id="PREV">PREV</div>
+            <div class="h_box" id="OOPS">OOPS</div>
         </div>
 
         <script>
+            let i, j;
+
+            // test
+            $(".box_1").on("click", function(event) {
+                $(this).toggleClass("box_ani");
+            })
+
+            $(function(){
+                let con_f = $(".container-fluid"),
+                    logo = $(".logo"),
+                    wraps = $(".logo > div"),
+                    FD_w = $(".FIND_wrap"),
+                    FE_w = $(".FINE_wrap"),
+                    WE_w = $(".WINE_wrap"),
+                    fst_w = FD_w.find(".first_wrap"),
+                    snd_w = FD_w.find(".second_wrap"),
+                    trd_w = FD_w.find(".third_wrap"),
+                    fth_w = FD_w.find(".fourth_wrap"),
+                    W_f = FD_w.find(".W_font"),
+                    F_f = FD_w.find(".F_font"),
+                    I_f = FD_w.find(".I_font"),
+                    N_f = FD_w.find(".N_font"),
+                    D_f = FD_w.find(".D_font"),
+                    E_f = FD_w.find(".E_font"),
+                    FE_f = FE_w.find(".FINE_font"),
+                    WE_f = FE_w.find(".WINE_font");
+
+                // test_box
+                let back = $("#BACK"),
+                    down = $("#DOWN"),
+                    up = $("#UPUP"),
+                    nope = $("#NOPE"),
+                    none = $("#NONE"),
+                    next = $("#NEXT"),
+                    prev = $("#PREV"),
+                    oops = $("#OOPS");
+
+                let main_ary = ["W", "F", "I", "N", "D", "E"],
+                    back_ary = ["B", "WF", "A", "I", "C", "N", "K", "DE"],
+                    down_ary = ["D", "WF", "O", "I", "W", "N", "N", "DE"],
+                    upup_ary = ["U", "WF", "P", "I", "U", "N", "P", "DE"];
+
+                logo.addClass("logo_load_fadeIn");
+
+                FD_w.removeClass("FIND_tlx");
+                FE_w.removeClass("FINE_opa");
+                WE_w.removeClass("WINE_opa_tlx");
+
+                function cls_func(bool, ary, wf, cls) {
+
+                    for (i = 0; i < ary.length; i++) {
+                        if (bool === "add") {
+                            FD_w.find("." + ary[i] + wf).addClass(ary[i] + cls);
+                        } else if (bool === "remove") {
+                            FD_w.find("." + ary[i] + wf).removeClass(ary[i] + cls);
+                        }
+                    }
+                }
+
+                // document.getElementById("DOWN_UPUP").scrollTo(0, document.getElementById("DOWN_UPUP_child").offsetHeight);
+
+                // setInterval(function(){
+                setTimeout(function(){
+                    cls_func("remove", main_ary, "_font", "_ani");
+
+                    let count = 0;
+                    $("h1").on("click", function(event){
+
+                        if (count === 0) {
+
+                            cls_func("add", main_ary, "_font", "_sch");
+
+                            cls_func("remove", main_ary, "_font", "_sch_hide");
+
+                            count++;
+                        } else {
+
+                            cls_func("add", main_ary, "_font", "_sch_hide");
+
+                            cls_func("remove", main_ary, "_font", "_sch");
+
+                            count = 0;
+                        }
+
+                    });
+
+                    // back
+                    back.on("mouseover", function(event) {
+                            // 안해주면 WINE 이 작동하지 않음
+                            cls_func("remove", down_ary, "_wrap", "_down_hide");
+                            cls_func("remove", down_ary, "_wrap", "_upup_hide");
+                        cls_func("add", back_ary, "_wrap", "_back");
+                        cls_func("remove", back_ary, "_wrap", "_back_hide");
+                    });
+                    back.on("mouseout", function(event) {
+                        cls_func("add", back_ary, "_wrap", "_back_hide");
+                        cls_func("remove", back_ary, "_wrap", "_back");
+                    });
+
+                    // down&upup
+                    let num = 0;
+                    window.__scrollPosition = document.getElementById("DOWN_UPUP").scrollTop || 0;
+                    document.getElementById("DOWN_UPUP").addEventListener("scroll", function(event) {
+                        let _documentY = document.getElementById("DOWN_UPUP").scrollTop;
+                        let _direction = _documentY - window.__scrollPosition >= 0 ? 1 : -1;
+                        // console.log(_direction, _documentY); // 콘솔창에 스크롤 방향을 출력
+
+                        if (num === 0) {
+
+                            if (_direction === 1) {
+                                    // class_func("remove", down_ary, "_wrap", "_upup");
+                                    cls_func("remove", down_ary, "_wrap", "_upup_hide");
+                                cls_func("add", down_ary, "_wrap", "_down");
+                                cls_func("remove", down_ary, "_wrap", "_down_hide");
+                                setTimeout(function () {
+                                    cls_func("add", down_ary, "_wrap", "_down_hide");
+                                    cls_func("remove", down_ary, "_wrap", "_down");
+                                },350);
+                            } else if (_direction === -1) {
+                                    // class_func("remove", down_ary, "_wrap", "_down");
+                                    cls_func("remove", down_ary, "_wrap", "_down_hide");
+                                cls_func("add", upup_ary, "_wrap", "_upup");
+                                cls_func("remove", upup_ary, "_wrap", "_upup_hide");
+                                setTimeout(function () {
+                                    cls_func("add", upup_ary, "_wrap", "_upup_hide");
+                                    cls_func("remove", upup_ary, "_wrap", "_upup");
+                                }, 350);
+                            }
+
+                            num++;
+                            setTimeout(function(){
+                                num = 0;
+                            }, 1800);
+                        }
+
+                        // function down_up_scroll_event() {
+                        // }
+
+                        window.__scrollPosition = _documentY; // Update scrollY
+                    });
+
+                }, 2180);
+
+
+
+            });
+
+            // class_func("add", down_ary, "_wrap", "_down");
+            // class_func("remove", down_ary, "_wrap", "_down_hide");
+
 
             // let logo = document.getElementsByClassName("logo")[0],
             //     wf = document.getElementsByClassName("W_font")[0],
@@ -243,11 +998,11 @@
             //     ef.classList.remove("hide");
             // });
             // jq
-            let logo = $(".logo"),
-                wf = $(".W_font"),
-                ff = $(".F_font"),
-                df = $(".D_font"),
-                ef = $(".E_font");
+            // let logo = $(".logo"),
+            //     wf = $(".W_font"),
+            //     ff = $(".F_font"),
+            //     df = $(".D_font"),
+            //     ef = $(".E_font");
             // logo.on("click", function(event) {
             //     console.log("good");
             //     wf.toggleClass("hide");
