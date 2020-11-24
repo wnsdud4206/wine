@@ -1,0 +1,26 @@
+<control_wrap>		// result: show, ,fixed
+	<bar_wrap>
+		<up_bar_wrap>			// 맨 위로
+			<up_back></up_back>
+			<up_bar></up_bar>
+		</up_bar_wrap>
+
+		<left_bar_wrap>			// 뒤로가기
+			<left_back></left_back>
+			<left_bar></left_bar>
+		</left_bar_wrap>
+
+		<right_bar_wrap>			// dark mode??
+			<right_back></right_back>
+			<right_bar></right_bar>
+		</right_bar_wrap>
+
+		<down_bar_wrap>			// 맨 밑으로
+			<down_back></down_back>
+			<down_bar></down_bar>
+		</down_bar_wrap>
+	</bar_wrap>
+
+	<control_circle>
+	</control_circle>
+</control_wrap>

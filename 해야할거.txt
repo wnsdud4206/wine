@@ -1,20 +1,23 @@
-결과창 스크롤(logo_inp_wrap 뒤에 안보이게끔??)
+	결과창 스크롤(logo_inp_wrap 뒤에 안보이게끔??)
 
-아래로 스크롤 시 logo_inp_wrap hide, 위로 스크롤 시 logo_inp_wrap show
+	아래로 스크롤 시 logo_inp_wrap hide, 위로 스크롤 시 logo_inp_wrap show
 
-top_button
+	top_button
 
-logo_inp_wrap fixed top 할 때 애니메이션 효과
+	logo_inp_wrap fixed top 할 때 애니메이션 효과
 
-엔터로 검색이 되게끔
+검색기록??
+우측 하단에 컨트롤 동그라미 만들기??
 
-footer 채우기
+	엔터로 검색이 되게끔
+
+	footer 채우기
 
 로고나 inp에 그림자효과 주기(입체감)
 
 테이블 꾸미기(글자 wrap, 폰트, 크기, align)
 
-테이블 위치
+	테이블 위치
 
 결과를 클릭 했을 때 더 자세한 정보를 알 수 있는 페이지로 이동??
 
@@ -22,7 +25,7 @@ footer 채우기
 
 client ip 마다 별점이나 즐겨찾기 기능
 
-좌측 상단에 뒤로가기 버튼(여러번 검색을 했을 경우, 이전 검색으로 돌아가기 or home으로 돌아가기)
+	좌측 상단에 뒤로가기 버튼(여러번 검색을 했을 경우, 이전 검색으로 돌아가기?? or home으로 돌아가기)
 
 google 셀레니움으로 결과 와인의 이미지 출력?
 

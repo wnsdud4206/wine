@@ -5,6 +5,40 @@ from datetime import datetime, timedelta
 # time = time.localtime() -> lt()
 import time
 
+# txt = ["aa 소비뇽", "ㅇㅇ", "ㅊㅊ"]
+# txt2 = ["aa", "ss", "vv"]
+# if "" in txt[0]:
+#     print("true")
+# else:
+#     print("false")
+# print(txt[0].find("소비뇽"))
+
+# test = "aa"
+# test2 = ""
+# test3 = ""
+# test4 = ""
+# # print(test.find(""))
+# if "" == test2 and test3:
+#     print("true")
+#
+# test = "2020-10-20"
+# print(int(test.replace("-", "")))
+
+def object():
+    test = ["1", "2", "3", "4"]
+    for ts in test:
+        print(ts)
+        if "3" in ts:
+            print("none_insert")
+            break
+        else:
+            print("insert")
+
+    print("success")
+
+object()
+
+
 # 요일 표시하는 법은?
 
 # date = datetime.now().minute
@@ -82,5 +116,5 @@ import time
 # test4 = [{"a": 1}, {"b": 2}, {"a": 3}]
 # print(test4.index(test5))
 
-for i in range(10, 0, -1):
-    print(i)
+# for i in range(10, 0, -1):
+#     print(i)

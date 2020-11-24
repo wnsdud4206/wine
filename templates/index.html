@@ -10,17 +10,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <!-- myStylesheet -->
+        <link rel="stylesheet" href="../static/css/logo_style.css">
+        <link rel="stylesheet" href="../static/css/main.css">
+
+        <!-- Bootstrap -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!--        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->     <!-- slim을 지우면 bootstrap이 안먹힘 -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+
         <!-- client 접속 ip -->
         <script src="http://jsgetip.appspot.com"></script>
 
-        <!-- myStylesheet -->
-        <link rel="stylesheet" href="../static/css/main.css">
-        <link rel="stylesheet" href="../static/css/logo_style.css">
 
         <title>Find_Fine_Wine_sample</title>
     </head>
@@ -35,7 +39,7 @@
             <div class="logo_form_wrap">
 <!--                <h1 class="logo">Find_Fine_Wine</h1>-->
                 <h1 class="logo logo_load_fadeIn">
-                    <div class="FIND_wrap FIND_tlx">
+                    <div class="FIND_wrap">
                         <div class="WF_wrap">
                             <span class="W_font W_ani">W</span>
                             <span class="F_font F_ani">F</span>
@@ -47,11 +51,11 @@
                         </div>
                     </div>
 
-                    <div class="FINE_wrap FINE_opa">
+                    <div class="FINE_wrap">
                         <span class="FINE_font">FINE</span>
                     </div>
 
-                    <div class="WINE_wrap WINE_opa_tlx">
+                    <div class="WINE_wrap">
                         <span class="WINE_font">WINE</span>
                     </div>
                 </h1>
@@ -195,30 +199,30 @@
                     </thead>
                     <tbody id="content_box">
                         <!-- ex -->
-                        <tr>
-                            <td>와인 이름1</td>
-                            <td>wine name1</td>
-                            <td>대한민국</td>
-                            <td>수입사</td>
-                            <td>와이너리</td>
-                            <td>2020-10-21</td>
-                        </tr>
-                        <tr>
-                            <td>와인 이름2</td>
-                            <td>wine name2</td>
-                            <td>대한민국</td>
-                            <td>수입사</td>
-                            <td>와이너리</td>
-                            <td>2020-10-21</td>
-                        </tr>
-                        <tr>
-                            <td>와인 이름3</td>
-                            <td>wine name3</td>
-                            <td>대한민국</td>
-                            <td>수입사</td>
-                            <td>와이너리</td>
-                            <td>2020-10-21</td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <td>와인 이름1</td>-->
+<!--                            <td>wine name1</td>-->
+<!--                            <td>대한민국</td>-->
+<!--                            <td>수입사</td>-->
+<!--                            <td>와이너리</td>-->
+<!--                            <td>2020-10-21</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>와인 이름2</td>-->
+<!--                            <td>wine name2</td>-->
+<!--                            <td>대한민국</td>-->
+<!--                            <td>수입사</td>-->
+<!--                            <td>와이너리</td>-->
+<!--                            <td>2020-10-21</td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>와인 이름3</td>-->
+<!--                            <td>wine name3</td>-->
+<!--                            <td>대한민국</td>-->
+<!--                            <td>수입사</td>-->
+<!--                            <td>와이너리</td>-->
+<!--                            <td>2020-10-21</td>-->
+<!--                        </tr>-->
                         <!-- /ex -->
                     </tbody>
                 </table>
@@ -278,6 +282,33 @@
 
         </div>
 
+        <div id="ip_object">
+<!--        <div id="ip_object">-->
+            <div id="name_insert">
+                <div id="text_wrap" class="font_size_cls">
+                    <span id="insert_info_text_1" class="insert_info_text">반가워요.</span>
+                    <span id="insert_info_text_2" class="insert_info_text test_ani">더 많은 서비스를 위해 이름을 입력해 주세요.</span>
+<!--                    <span id="insert_info_text_3" class="insert_info_text test_ani">이름을 입력해 주세요.</span>-->
+                </div>
+                <div id="name_inp_wrap">
+                    <label for="name_inp">내 이름은</label>
+                    <input id="name_inp" type="text" />
+                    <button class="name_insert_btn">입니다!</button>
+                </div>
+            </div>
+            <div class="check_alert hide">
+                <p class="check_text">"<span class="user_inp_name">test</span>"님이 맞으신가요?</p>
+                <div class="check_btn_wrap">
+                    <button class="check_btn check_no">아니요!</button>      <!-- 무채색 컬러 -->
+                    <button class="check_btn check_ok">맞아요!</button>      <!-- 파랑계열 컬러 -->
+                </div>
+            </div>
+
+            <div id="visit_info">
+                <span></span>
+            </div>
+        </div>
+
         <div class="home_btn">
             <a href="javascript:void(0)">
                 <svg viewBox="0 0 47 47">
@@ -288,6 +319,47 @@
                 </svg>
             </a>
         </div>
+
+        <div class="top_btn">
+            <a href="javascript:void(0)">
+                <svg viewBox="0 0 47 47">
+    <!--                <path fill="none" stroke="black" stroke-width="3" stroke-linecap="round" d="M27 6 L6 27 Z M6 27 L27 47 Z M6 27 L 47 27"></path>-->
+                    <line x1="24" y1="4" x2="4" y2="24" stroke="black" stroke-width="3" stroke-linecap="round"></line>
+                    <line x1="24" y1="4" x2="24" y2="43" stroke="black" stroke-width="3" stroke-linecap="round"></line>
+                    <line x1="24" y1="4" x2="43" y2="24" stroke="black" stroke-width="3" stroke-linecap="round"></line>
+                </svg>
+            </a>
+        </div>
+
+<!--        <div id="control_wrap">-->
+<!--            <div id="control_bar_wrap">-->
+<!--                <div id="up_bar_wrap" class="bar_wrap">-->
+<!--                    <div id="up_back" class="back"></div>-->
+<!--                    <div id="up_bar" class="bar"></div>-->
+<!--                </div>-->
+
+<!--                <div id="control_bar_wrap_center">-->
+<!--                    <div id="left_bar_wrap" class="bar_wrap">-->
+<!--                        <div id="left_back" class="back"></div>-->
+<!--                        <div id="left_bar" class="bar"></div>-->
+<!--                    </div>-->
+
+<!--                    <div id="right_bar_wrap" class="bar_wrap">-->
+<!--                        <div id="right_back" class="back"></div>-->
+<!--                        <div id="right_bar" class="bar"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div id="down_bar_wrap" class="bar_wrap">-->
+<!--                    <div id="down_back" class="back"></div>-->
+<!--                    <div id="down_bar" class="bar"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div id="control_circle">       &lt;!&ndash; position: absolute &ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <span id="offset_test" style="position: fixed; top: 0; left: 0; outline: 1px solid black;"></span>-->
 
         <!-- myScript -->
 <!--        <script src="../static/js/logo_style.js"></script>-->

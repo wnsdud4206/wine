@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 h1.logo.logo_load_fadeIn {
-    animation: logo_load_fadeIn .4s ease-in-out .1s 1 alternate forwards;
+    opacity: 0;
+    animation: logo_load_fadeIn .7s ease-in-out .2s 1 alternate forwards;
 }
 .logo > .FIND_wrap,
 .logo > .WINE_wrap {
@@ -11,8 +12,17 @@ h1.logo.logo_load_fadeIn {
 .logo > .FIND_wrap {
     display: flex;
     z-index: 10;
-    transform: translateX(6px);
-    transition: transform .75s .5s;
+    transform: translateX(-110%);
+    animation: tlx .75s 1s 1 alternate forwards;
+    /*transition: transform .75s .5s;*/
+}
+@-webkit-keyframes tlx {
+    0% {
+        transform: translateX(-110%);
+    }
+    100% {
+        transform: translateX(6px);
+    }
 }
 
 .logo > .FIND_wrap.search_btn {
@@ -45,18 +55,37 @@ h1.logo.logo_load_fadeIn {
 .logo > .FINE_wrap {
     color: #803a48;
     position: relative;
-    opacity: 0;
     z-index: 9;
-    transition: opacity .75s .5s;
+    animation: opa .75s 1s 1 alternate forwards;
+    /*transition: opacity .75s .5s;*/
+}
+@-webkit-keyframes opa {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 .logo > .FINE_wrap.FINE_opa {
     opacity: 1;
 }
 .logo > .WINE_wrap {
     color: #b4281E;
-    opacity: 0;
+        transform: translateX(110%);
     z-index: 8;
-    transition: opacity .75s .5s, transform .75s .5s;
+    animation: opa_tlx .75s 1s 1 alternate forwards;
+    /*transition: opacity .75s .5s, transform .75s .5s;*/
+}
+@-webkit-keyframes opa_tlx {
+    0% {
+        opacity: 1;
+        transform: translateX(110%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(0);
+    }
 }
 .logo > .WINE_wrap.WINE_opa_tlx {
     opacity: 1;
@@ -133,22 +162,22 @@ h1.logo.logo_load_fadeIn {
 /* 오프닝 그룹 */
 .FIND_wrap > div > span.W_ani {
     transform: matrix(1, 0, 0, 0, 0, 0);
-    animation: W_ani .3s 2s 1 alternate forwards;
+    animation: W_ani .3s 2.2s 1 alternate forwards;
 }
 .FIND_wrap > div > span.F_ani {
     transform: matrix(1, 0, 0, 1, 0, 0);
-    animation: F_ani .8s 1.5s 1 alternate forwards;
+    animation: F_ani .8s 1.7s 1 alternate forwards;
 }
 .FIND_wrap > span.IN_ani {
-    animation: IN_ani .8s 1.5s 1 alternate forwards;
+    animation: IN_ani .8s 1.7s 1 alternate forwards;
 }
 .FIND_wrap > div > span.D_ani {
     transform: matrix(1, 0, 0, 1, 0, 0);
-    animation: D_ani .3s 1.5s 1 alternate forwards;
+    animation: D_ani .3s 1.7s 1 alternate forwards;
 }
 .FIND_wrap > div > span.E_ani {
     transform: matrix(1, 0, 0, 0, 0, 53);
-    animation: E_ani .8s 1.5s 1 alternate forwards;
+    animation: E_ani .8s 1.7s 1 alternate forwards;
 }
 
 @-webkit-keyframes W_ani {

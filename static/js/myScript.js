@@ -10,7 +10,6 @@ let i, j;
 
 
 // client 접속 ip
-console.log(ip());
 
 
 // $(function(){
@@ -27,12 +26,22 @@ let wraps = $(".logo > div"),
     WE_f = FE_w.find(".WINE_font"),
     con_f = $(".container-fluid");
 
-FD_w.removeClass("FIND_tlx");
-FE_w.removeClass("FINE_opa");
-WE_w.removeClass("WINE_opa_tlx");
+$(function() {
+    // FD_w.removeClass("FIND_tlx");
+    // FE_w.removeClass("FINE_opa");
+    // WE_w.removeClass("WINE_opa_tlx");
+    //
+    // W_f.addClass("W_ani");
+    // F_f.addClass("F_ani");
+    // IN_f.addClass("IN_ani");
+    // D_f.addClass("D_ani");
+    // E_f.addClass("E_ani");
+
+    // animation 도 html에 미리 넣어두지 말고 jquery로 addClass 하기?? 새로고침할 때 애니메이션이 깨질 때가 많음
+});
 // });
 
-$(".k_name").focus();
+// $(".k_name").focus();
 
 
 // topic select, 201105
@@ -69,7 +78,9 @@ let ig = document.getElementsByClassName("input-group"),
     dd_m = document.getElementsByClassName("dropdown-menu"),
     iw = document.getElementsByClassName("input_wrap");
 
-// inp = document.getElementsByClassName("form-control");
+
+
+
 
 function dm_a_refresh() {
     for (i = 0; i < ig.length; i++) {
@@ -127,7 +138,6 @@ function dm_a_refresh() {
         }
     }
 }
-
 dm_a_refresh();
 
 function iw_cls_ary_push() {
@@ -214,8 +224,8 @@ function search_btn_event() {
                 inp_not_date_keyup_event();
             } else {
                 if (FD_w.attr("class").split(" ").includes("search_btn")) {
-                    get_event();
-                    // console.log("enter_true2");
+                    postArticle();
+                    // showArticles2();
                 }
             }
         });
@@ -257,6 +267,7 @@ function sch_hide() {
     E_f.removeClass("E_sch");
 }
 
+// inp 값이 모두 채워지면 show 수정??
 function inp_not_date_keyup_event() {
     for (i = 0; i < $(".input_wrap:not(.date_box) > .form-control").length; i++) {
         if ($(".input_wrap:not(.date_box) > .form-control").eq(i).val() === "") {
@@ -281,6 +292,78 @@ function topic_select() {
 }
 
 topic_select();
+
+
+
+let io = $("#ip_object"),
+    n_insert = $("#name_insert"),
+    t_w = $("#text_wrap"),
+    i_i_t = $(".insert_info_text"),
+    n_inp_w = $("#name_inp_wrap"),
+    n_inp = $("#name_inp"),
+    n_insert_btn = $(".name_insert_btn"),
+    c_a = $(".check_alert"),
+    u_inp_n = $(".user_inp_name"),
+    c_no = $(".check_no"),
+    c_ok = $(".check_ok");
+function name_insert_object() {
+
+    function name_insert_event() {
+        setTimeout(function () {
+            io.slideDown(600);
+            setTimeout(function () {
+                i_i_t.eq(1).removeClass("test_ani")
+            }, 1200);
+        }, 300);
+
+        n_inp.on("focusin", function () {
+            n_inp_w.addClass("font_size_cls");
+            t_w.removeClass("font_size_cls");
+            i_i_t.eq(1).css("width", "296px");
+        }).on("focusout", function () {
+            t_w.addClass("font_size_cls");
+            n_inp_w.removeClass("font_size_cls");
+            i_i_t.eq(1).css("width", "443.8px");
+        }).on("keyup", function () {
+            let wid = $(this).width();
+            if ($(this).val().length > 2) {
+                $(this).width(80 + (20 * ($(this).val().length - 2)));
+            } else {
+                $(this).width(80);
+            }
+
+            if ($(this).val() !== "") {
+                n_insert_btn.addClass("name_insert_post");
+            } else {
+                n_insert_btn.removeClass("name_insert_post");
+            }
+        });
+
+        n_insert_btn.on("click", function (event) {
+            if ($(this).attr("class").includes("name_insert_post")) {
+                u_inp_n.text(n_inp.val());
+                c_a.removeClass("hide");
+
+                c_no.off("click").on("click", function () {
+                    c_a.addClass("hide");
+                    n_inp.focus();
+                });
+                c_ok.off("click").on("click", function () {
+                    console.log("name_insert");
+                    c_a.addClass("hide");
+                    postClientIp();
+                    // io 말고 n_insert 숨기고 visit_info 효과 보이기(n번째 방문이시네요)
+                });
+            }
+        });
+    }
+    // name_insert_event();
+
+}
+// name_insert_object();
+
+
+
 
 // 리팩토링 none
 // function topic_select() {
@@ -567,7 +650,6 @@ topic_select();
 // function input_add_btn() {
 // sch_btn addClass 가 되면서 애니메이션이 작동하는 문제
 $(".add_btn").on("click", add_btn_event);
-
 function add_btn_event(event) {
     let q_ig = $(".input-group");
     let dd_b_txt_ary = ["한글명", "영문명", "제조국", "수입사", "와이너리", "수입일"],
@@ -577,7 +659,7 @@ function add_btn_event(event) {
     for (i = 0; i < q_ig.length; i++) {
         dd_b_txt_ary.splice(dd_b_txt_ary.indexOf(q_ig.eq(i).find(".dropdown-btn").text()), 1);
         iw_cls_ary.splice(iw_cls_ary.indexOf(q_ig.eq(i).find(".input_wrap").attr("class").split(" ")[1]), 1);
-        inp_cls_ary.splice(inp_cls_ary.indexOf(q_ig.eq(i).find(".input_wrap").attr("class").split(" ")[1].replace("_box", "")), 1);
+        // inp_cls_ary.splice(inp_cls_ary.indexOf(q_ig.eq(i).find(".input_wrap").attr("class").split(" ")[1].replace("_box", "")), 1);
     }
 
     let add_html = `
@@ -594,7 +676,7 @@ function add_btn_event(event) {
                     </div>
                 </div>
                 <div class="input_wrap ${iw_cls_ary[0]}">
-                    <input type="text" class="form-control ${inp_cls_ary[0]}" aria-label="Text input with dropdown button">
+                    <input type="text" class="form-control ${iw_cls_ary[0].replace("_box", "")}" aria-label="Text input with dropdown button">
                 </div>
                 <div class="input-group-append">
                     <button class="remove_btn" type="button">
@@ -705,7 +787,9 @@ function remove_all_btn_event(event) {
     $(".add_btn").on("click", add_btn_event);
 
     topic_select();
+
                                             $(".result_form").css("height", "36px");
+
 }
 
 // }
@@ -715,12 +799,38 @@ function remove_all_btn_event(event) {
 // remove_btn
 
 
-// ajax
-
-// $(document).ready(function () {
-// $("#content_box").html("");      // 임시 주석
-// showArticles();
+// control_circle - javascript
+// let cw = document.getElementById("control_wrap"),
+//     cc = document.getElementById("control_circle");
+// let ot = document.getElementById("offset_test");
+// // onmoouse 로 주기??
+//
+// cw.addEventListener("mousedown", function (e) {
+//     console.log("down");
+//     move_event(e);
+//     this.addEventListener("mousemove", move_event);
 // });
+// document.addEventListener("mouseup", function (e) {
+//     console.log("up");
+//     cw.removeEventListener("mousemove", move_event);
+//
+//     cc.style.top = (80 / 2) - (24 / 2) + "px";
+//     cc.style.left = (80 / 2) - (24 / 2) + "px";
+// });
+// function move_event(e) {
+//     let ox = e.offsetX,
+//         oy = e.offsetY;
+//     ot.innerText = "X: " + ox + ", Y: " + oy;
+//
+//     cc.style.top = (oy - 12) + "px";
+//     cc.style.left = (ox - 12) + "px";
+// }
+
+
+
+
+
+// ajax
 
 // input 에 change event
 // table show, logo click hide
@@ -730,24 +840,18 @@ function remove_all_btn_event(event) {
 FD_w.on("click", function (event) {
 // function search_btn_refresh(event) {
     if ($(this).attr("class").split(" ").includes("search_btn")) {
-        get_event();
+        postArticle();
+        // showArticles2();
     }
 });
-
-function get_event() {
-    // postArticle();
-
-
-    // 결과가 없을 때는 나오지 않게
-    showArticles();         // $(".table_wrap").fadeIn(1000); 삽입
-}
 
 function home_btn_event(event) {
     window.location.reload();
 }
+function top_btn_event(event) {
+    window.scrollTo(0, 0);
+}
 
-
-// showArticles();
 
 // function postArticle() {
 //     let k_name, e_name, country, importer, winery, date_min, date_max;
@@ -788,66 +892,106 @@ function inp_add_cls() {
 
 function inp_refresh() {
 
-    // .on 메소드는 event 중첩이 돼서 refresh 해줄 때 .off 해줘야 됨
+    // .on(+ addEventListener) 메소드는 event 중첩이 돼서 refresh 해줄 때 .off 해줘야 됨
     rf.off("mouseenter mousemove mouseleave").on("mouseenter mousemove", function (event) {
-        ai_show_event();
+        inp_stop_func();
     }).on("mouseleave", function (event) {
-        ai_hide_event();
-    });
-    // $(".dropdown-btn").on("focus", function (event) {
-    //     rf.css("overflow", "visible");
-    // }).on("blur", function (event) {
-    //     rf.css("overflow", "hidden");
-    // });
-
-    $(".dropdown-btn").on("click", function (event) {
-        // if ($(".dropdown-menu").attr("class").includes("show")) rf.addClass("visible_form");
-        rf.addClass("visible_form");
+        inp_hide_func();
     });
 
-    // if ($(".dropdown-menu").attr("class").includes("show")) {
-    //     // .dropdown-btn 을 클릭 했을 때
-    //     rf.addClass("visible_form");
-    // } else {
-    //     // .dropdown-menu 의 class show 가 없어졌을 때
-    //     rf.removeClass("visible_form");
-    // }
-
+    $(".dropdown-btn").off("click").on("click", event => rf.addClass("visible_form"));
+    // $(".dropdown-btn").on("click", event => rf.addClass("visible_form"));
 }
-
-function ai_show_event() {
-    inp_stop_func();
-    // rf.off("mouseleave", inp_hide_func);
-}
-
-function ai_hide_event() {
-    inp_hide_func();
-    // rf.on("mouseleave", inp_hide_func);
-}
-
 function inp_stop_func() {
     inp_stop = clearTimeout(inp_hide);
     rf.css("height", (36 * $(".input-group").length) + "px");
 }
-
 function inp_hide_func() {
-    inp_hide = setTimeout(function () {
-        rf.css("height", "36px");
-        if (all_inp.length !== 1) {
-            rf.removeClass("visible_form");
-            // $(".dropdown-btn").blur();
-            $(".dropdown-menu").removeClass("show");
-        }
-    }, 1000);
+    if (all_inp.length !== 1) {
+        inp_hide = setTimeout(function () {
+            inp_hide_object();
+        }, 1000);
+    }
+}
+function inp_hide_object() {
+    rf.css("height", "36px").removeClass("visible_form");
+    $(".dropdown-menu").removeClass("show");
 }
 
+// search_filter
 
 // Enter 누르면 검색 되게끔 하기, 통합검색도 구현하기
 // 기본 수입일 정렬(다음 한글이름순), 각각 정렬로 보기 기능 구현하기, 클릭중일 때 삐죽 튀어나왔다가 튀어나온 방향으로 드레그 하면 열리는 기능?
 // 결과값이 너무 많으면 한 페이지에 20개 정도 출력?
 // 띄어쓰기 생략해도 검색 가능하게끔?(일단 k_name ~ winery만 구현)
 // google 처럼 한글자 검색할 때마다 나오는 자동완성? 창 문자열 index 가 가장 낮은 순서대로 나오게(5개정도?)
-function showArticles() {
+
+function post_client_name() {
+
+    $.ajax({
+        type: "POST",
+        url: "/ipNameInsert",
+        data: {"client_name": n_inp_val},
+        success: function (response) { // 성공하면
+            // if (response["result"] === "success") {
+            //     // alert(response["msg"]);
+            //     // window.location.reload();
+            //     console.log("search_POST");
+            // }
+        }
+    })
+}
+console.log(ip());
+function postClientIp() {
+    // let n_inp_val = n_inp.val();
+    let n_inp_val;
+    let client_ip = ip();
+    if (n_inp.val() !== "") {
+        n_inp_val = n_inp.val();
+    } else {
+        n_inp_val = "";
+    }
+
+
+    $.ajax({
+        type: "POST",
+        url: "/ip",
+        data: {"client_ip_give": client_ip, "client_name": n_inp_val},
+        success: function (response) { // 성공하면
+            // if (response["result"] === "success") {
+            //     // alert(response["msg"]);
+            //     // window.location.reload();
+            //     console.log("search_POST");
+            // }
+        }
+    })
+}
+postClientIp();
+function getClientIp() {
+    $.ajax({
+        type: "GET",
+        url: "/ip",
+        data: {},
+        success: function (response) { // 성공하면
+            // if (response["result"] === "success") {
+            //     // alert(response["msg"]);
+            //     // window.location.reload();
+            //     console.log("search_POST");
+            // }
+        }
+    })
+}
+
+
+function postArticle() {
+    // let k_name, e_name, country, importer, winery, date_min, date_max;
+    // k_name = $("#search_k_name").val();
+    // e_name = $("#search_e_name").val().toUpperCase();
+    // country = $("#search_country").val();
+    // importer = $("#search_importer").val();
+    // winery = $("#search_winery").val().toUpperCase();
+    // date_min = $("#search_date_min").val();
+    // date_max = $("#search_date_max").val();
     let q_ig = $(".input-group");
     let k_name_val = "",
         e_name_val = "",
@@ -860,8 +1004,6 @@ function showArticles() {
     function inp_val() {
         // switch!!!, GOOD!!!
         for (i = 0; i < q_ig.length; i++) {
-            // switch (q_ig.eq(i).find(".input_wrap:not(.date_box) > .form-control").attr("class").split(" ")[1]) {
-            // "k_name_box", "e_name_box", "country_box", "importer_box", "winery_box", "date_box"
             switch (q_ig.eq(i).find(".input_wrap").attr("class").split(" ")[1]) {
                 case 'k_name_box':
                     k_name_val = $(".k_name").val().replaceAll(" ", "");
@@ -922,63 +1064,148 @@ function showArticles() {
                 default:
                     break;
             }
-
         }
-
     }
-
     inp_val();
+
+    console.log(q_ig.length);
+
+    $.ajax({
+        type: "POST",
+        url: "/search",
+        data: {"k_name_give": k_name_val, "e_name_give": e_name_val, "country_give": country_val, "importer_give": importer_val, "winery_give": winery_val, "min_date_give": min_date_val, "max_date_give": max_date_val},   // app.py로 보내기?, date 임시 제거
+        success: function (response) { // 성공하면
+            if (response["result"] === "success") {
+                // alert(response["msg"]);
+                // window.location.reload();
+                console.log("search_POST");
+                showArticles2();
+            }
+        }
+    })
+}
+
+function showArticles2() {
+    let q_ig = $(".input-group");
+    // let k_name_val = "",
+    //     e_name_val = "",
+    //     country_val = "",
+    //     importer_val = "",
+    //     winery_val = "",
+    //     min_date_val = "",
+    //     max_date_val = "";
+    //
+    // function inp_val() {
+    //     // switch!!!, GOOD!!!
+    //     for (i = 0; i < q_ig.length; i++) {
+    //         switch (q_ig.eq(i).find(".input_wrap").attr("class").split(" ")[1]) {
+    //             case 'k_name_box':
+    //                 k_name_val = $(".k_name").val().replaceAll(" ", "");
+    //                 break;
+    //             case 'e_name_box':
+    //                 e_name_val = $(".e_name").val().toUpperCase().replaceAll(" ", "");
+    //                 break;
+    //             case 'country_box':
+    //                 country_val = $(".country").val().replaceAll(" ", "");
+    //                 break;
+    //             case 'importer_box':
+    //                 importer_val = $(".importer").val().replaceAll(" ", "");
+    //                 break;
+    //             case 'winery_box':
+    //                 winery_val = $(".winery").val().toUpperCase().replaceAll(" ", "");
+    //                 break;
+    //             case 'date_box':
+    //
+    //                 let min_year = $(".min_date_year"),
+    //                     min_month = $(".min_date_month"),
+    //                     min_day = $(".min_date_day"),
+    //                     max_year = $(".max_date_year"),
+    //                     max_month = $(".max_date_month"),
+    //                     max_day = $(".max_date_day");
+    //                 let min_month_val,
+    //                     min_day_val,
+    //                     max_month_val,
+    //                     max_day_val;
+    //                 // let date_ary_not_year = [min_month, min_day, max_month, max_day],
+    //                 //     date_val_ary = [min_month_val, min_day_val, max_month_val, max_day_val];
+    //
+    //                 // 리펙토링은 나중에
+    //                 if (min_month.val().length === 1) {
+    //                     min_month_val = "0" + min_month.val();
+    //                 } else {
+    //                     min_month_val = min_month.val();
+    //                 }
+    //                 if (min_day.val().length === 1) {
+    //                     min_day_val = "0" + min_day.val();
+    //                 } else {
+    //                     min_day_val = min_day.val();
+    //                 }
+    //                 if (max_month.val().length === 1) {
+    //                     max_month_val = "0" + max_month.val();
+    //                 } else {
+    //                     max_month_val = max_month.val();
+    //                 }
+    //                 if (max_day.val().length === 1) {
+    //                     max_day_val = "0" + max_day.val();
+    //                 } else {
+    //                     max_day_val = max_day.val();
+    //                 }
+    //
+    //                 min_date_val = "20" + min_year.val() + "-" + min_month_val + "-" + min_day_val;
+    //                 max_date_val = "20" + max_year.val() + "-" + max_month_val + "-" + max_day_val;
+    //
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    //     }
+    // }
+    // inp_val();
 
     $.ajax({
         type: "GET",
-        url: "/wine",
+        url: "/search",
         data: {},
         success: function (response) {
-            let wines = response["wines"];
-            let wines_result_ary = [];
-            let num = 0,
-                count = 0,
-                max_result = 20;    // 임시(최대 출력 결과 갯수)
+            if (response['result'] === 'success') {
 
-            if (k_name_val === "" && e_name_val === "" && country_val === "" && importer_val === "" && winery_val === "" && min_date_val === "" && max_date_val === "") {
-                // NOPE
-                alert("검색할 내용을 입력해주세요.");
-                console.log("검색할 내용을 입력해주세요.");
-            } else {
+                let wines = response["wines"];
+                let wines_result_ary = [];
+                let num = 0,
+                    count = 0,
+                    max_result = 20;    // 임시(최대 출력 결과 갯수)
+                // console.log(response["wines"]);
 
-                // 함수들 글로벌로 빼주기(가독성)
+                // if ($(".k_name").val() == null && e_name_val == null && country_val == null && importer_val == null && winery_val == null && min_date_val == null && max_date_val == null) {
+                if ($(".k_name").val() == null && $(".e_name").val() == null && $(".country").val() == null && $(".importer").val() == null && $(".winery").val() == null) {
+                    // NOPE
+                    alert("검색할 내용을 입력해주세요.");
+                    console.log("검색할 내용을 입력해주세요.");
+                } else {
 
-                for (i = 0; i < wines.length; i++) {
-                    let wine = wines[i];
-                    let k_name = wine["와인_이름_kr"];
-                    let e_name = wine["와인_이름_en"];
-                    let country = wine["제조국"];
-                    let importer = wine["수입사"];
-                    let winery = wine["와이너리"];
-                    let date = wine["수입일"];
+                    // 함수들 글로벌로 빼주기(가독성)
 
+                    for (i = 0; i < wines.length; i++) {
+                        let wine = wines[i];
+                        let k_name = wine["와인_이름_kr"];
+                        let e_name = wine["와인_이름_en"];
+                        let country = wine["제조국"];
+                        let importer = wine["수입사"];
+                        let winery = wine["와이너리"];
+                        let date = wine["수입일"];
 
-                    function true_or_false() {
-                        let if_bool;
-
-                        if (min_date_val === "" && max_date_val === "") if_bool = k_name.replace(" ", "").includes(k_name_val) && e_name.replace(" ", "").includes(e_name_val) && country.replace(" ", "").includes(country_val) && importer.replace(" ", "").includes(importer_val) && winery.replace(" ", "").includes(winery_val);
-                        else if_bool = k_name.replace(" ", "").includes(k_name_val) && e_name.replace(" ", "").includes(e_name_val) && country.replace(" ", "").includes(country_val) && importer.replace(" ", "").includes(importer_val) && winery.replace(" ", "").includes(winery_val) && Number(min_date_val.replaceAll("-", "")) < Number(date.replaceAll("-", "")) < Number(max_date_val.replaceAll("-", ""));
-
-                        return if_bool;
-                    }
-
-                    if (true_or_false()) {
+                        // console.log(k_name);
 
                         let html = `
-                            <tr id="tr_${num + 1}">
-                                <td>${k_name}</td>
-                                <td>${e_name}</td>
-                                <td>${country}</td>
-                                <td>${importer}</td>
-                                <td>${winery}</td>
-                                <td>${date}</td>
-                            </tr>
-                        `;
+                        <tr id="tr_${i + 1}">
+                            <td>${k_name}</td>
+                            <td>${e_name}</td>
+                            <td>${country}</td>
+                            <td>${importer}</td>
+                            <td>${winery}</td>
+                            <td>${date}</td>
+                        </tr>
+                    `;
 
                         if (num % max_result === 0) {
                             wines_result_ary.push([]);
@@ -989,21 +1216,11 @@ function showArticles() {
                         wines_result_ary[count].push(html);
                         num++;
                     }
+                    console.log(wines_result_ary)
 
-                }
 
-                // console.log(wines_result_ary.length)
-                // console.log("last_ary_number: " + wines_result_ary[wines_result_ary.length - 1].length);
-
-                if ($("#content_box > tr").length === 0) {
-                    $(".table_wrap").fadeOut(1000);
-                    // NONE
-                    alert("검색 결과를 찾을 수 없습니다.");
-                    console.log("검색 결과를 찾을 수 없습니다.");
-                } else {
-                    $(window).scrollTop(0);
-                    $(".logo_form_wrap").addClass("top_fixed");
-                    $(".home_btn").fadeIn(1000).on("click", home_btn_event);
+                    // console.log(wines_result_ary.length)
+                    // console.log("last_ary_number: " + wines_result_ary[wines_result_ary.length - 1].length);
 
                     // variable
                     // scrolling_view_bar
@@ -1037,68 +1254,6 @@ function showArticles() {
                         tick,
                         tock;
 
-
-                    // 검색이 안됨
-                    // dm_a_refresh();
-
-
-                    // scrolling_view_bar
-                    document.addEventListener("scroll", function (event) {
-                        let val = (window.pageYOffset / (con.offsetHeight - window.innerHeight)) * 100;
-
-                        function tick_func() {
-                            tick = setTimeout(() => $("#val_text").css("opacity", "0"), 1000);
-                        }
-
-                        function tock_func() {
-                            $("#val_text").css("opacity", "1");
-                            tock = clearTimeout(tick);
-                        }
-
-                        svb.style.width = val + "%";
-                        vt.innerText = Math.ceil(val);
-
-                        tock_func();
-                        tick_func();
-
-                    });
-                    // /scrolling_view_bar
-
-
-                    // logo_form_wrap
-                    inp_add_cls();
-                    inp_refresh();
-                    // result inp down hidden, up show
-                    // $(document).on("mousewheel DOMMouseScroll", fw_wheel_event);
-                    // // $(document).on("scroll", fw_wheel_event);
-                    // function fw_wheel_event(event) {
-                    //     ts = fw;
-                    //     let dy = event.originalEvent;
-                    //
-                    //     if (($(document).height() - window.innerHeight - 110) > $(document).scrollTop()) {
-                    //         if (dy.deltaY > 0) ts.addClass("hide");
-                    //         else ts.removeClass("hide");
-                    //     } else ts.removeClass("hide");
-                    // }
-                    // js
-                    window.__scrollPosition = document.documentElement.scrollTop || 0;
-                    document.onscroll = () => {
-                        let ts = document.getElementsByClassName("form_wrap")[0];
-                        let _documentY = document.documentElement.scrollTop;
-                        let _direction = _documentY - window.__scrollPosition >= 0 ? 1 : -1;
-
-                        if (window.pageYOffset < (document.body.offsetHeight - window.innerHeight - 80)) {
-                            if (_direction > 0) ts.classList.add("hide");
-                            else ts.classList.remove("hide");
-                        } else ts.classList.remove("hide");
-
-                        window.__scrollPosition = _documentY; // Update scrollY
-                    }
-
-
-                    // /logo_form_wrap
-
-
                     // result group
                     c_b.empty();
 
@@ -1107,150 +1262,225 @@ function showArticles() {
                     }
                     // /result group
 
-                    // page_btn group
-                    n_w.empty();
+                    if ($("#content_box > tr").length === 0) {
+                        $(".table_wrap").fadeOut(1000);
+                        // NONE
+                        alert("검색 결과를 찾을 수 없습니다.");
+                        console.log("검색 결과를 찾을 수 없습니다.");
+                    } else {
+                        $(window).scrollTop(0);
+                        $(".logo_form_wrap").addClass("top_fixed");
+                        $(".home_btn").fadeIn(1000).on("click", home_btn_event);
+                        $(".top_btn").fadeIn(1000).on("click", top_btn_event);
 
-                    for (i = 1; i <= wines_result_ary.length; i++) {
-                        if (i === 1) {
-                            page_num_btn_html = `
+
+                        // 검색이 안됨
+                        // dm_a_refresh();
+
+
+                        // scrolling_view_bar
+                        document.addEventListener("scroll", scrolling_view_bar_event);
+
+                        function scrolling_view_bar_event(event) {
+                            let val = (window.pageYOffset / (con.offsetHeight - window.innerHeight)) * 100;
+
+                            function tick_func() {
+                                tick = setTimeout(() => $("#val_text").css("opacity", "0"), 1000);
+                            }
+
+                            function tock_func() {
+                                $("#val_text").css("opacity", "1");
+                                tock = clearTimeout(tick);
+                            }
+
+                            svb.style.width = val + "%";
+                            vt.innerText = Math.ceil(val);
+
+                            tock_func();
+                            tick_func();
+
+                        }
+
+                        // /scrolling_view_bar
+
+
+                        // logo_form_wrap
+                        inp_add_cls();
+                        inp_refresh();
+                        // result inp down hidden, up show
+                        // $(document).on("mousewheel DOMMouseScroll", fw_wheel_event);
+                        // // $(document).on("scroll", fw_wheel_event);
+                        // function fw_wheel_event(event) {
+                        //     ts = fw;
+                        //     let dy = event.originalEvent;
+                        //
+                        //     if (($(document).height() - window.innerHeight - 110) > $(document).scrollTop()) {
+                        //         if (dy.deltaY > 0) ts.addClass("hide");
+                        //         else ts.removeClass("hide");
+                        //     } else ts.removeClass("hide");
+                        // }
+                        // js
+                        window.__scrollPosition = document.documentElement.scrollTop || 0;
+                        document.onscroll = () => {
+                            let ts = document.getElementsByClassName("form_wrap")[0];
+                            let _documentY = document.documentElement.scrollTop;
+                            let _direction = _documentY - window.__scrollPosition >= 0 ? 1 : -1;
+
+                            if (window.pageYOffset < (document.body.offsetHeight - window.innerHeight - 80)) {
+                                if (_direction > 0) {
+                                    ts.classList.add("hide");
+
+                                    inp_hide_object();
+                                } else ts.classList.remove("hide");
+                            } else ts.classList.remove("hide");
+
+                            window.__scrollPosition = _documentY; // Update scrollY
+                        }
+
+
+                        // /logo_form_wrap
+
+
+
+                        // page_btn group
+                        n_w.empty();
+
+                        for (i = 1; i <= wines_result_ary.length; i++) {
+                            if (i === 1) {
+                                page_num_btn_html = `
                                     <a href="javascript:void(0)" class="page_btn num_btn active" value="${i}">
                                         ${i}
                                     </a>
                                 `;
-                        } else {
-                            page_num_btn_html = `
+                            } else {
+                                page_num_btn_html = `
                                     <a href="javascript:void(0)" class="page_btn num_btn" value="${i}">
                                         ${i}
                                     </a>
                                 `;
-                        }
-                        n_w.append(page_num_btn_html);
-                    }
-
-                    // 20201121 ------------------------------------------------------------------------
-                    // if (wines_result_ary.length < 6) {
-                    //     $(".prev_wrap").hide();
-                    //     $(".next_wrap").hide();
-                    //     $(".page_btn_wrap").css("justify-content", "center");
-                    // } else {
-                    //
-                    // }
-
-                    n_w_a = $(".num_wrap > a.num_btn");
-
-                    p_n_a.on("click", prev_next_btn_event);
-                    function prev_next_btn_event(event) {
-                        let tc = $(this).attr("class").split(" ")[1];
-                        let move_val = (Number(n_w.css("width").replace("px", "")) + Number(n_w_a.css("margin-right").replace("px", ""))),
-                            m_nt_scroll_val = (Number(n_w_a.css("width").replace("px", "")) * n_w_a.length + Number(n_w_a.css("margin-right").replace("px", "")) * (n_w_a.length - 1));
-
-                        function tick_func() {
-                            tick = setTimeout(() => n_w.scrollLeft(28 * (n_w.find(".active").attr("value") - 3)), 3000);
+                            }
+                            n_w.append(page_num_btn_html);
                         }
 
-                        function tock_func() {
-                            tock = clearTimeout(tick);
+                        if (wines_result_ary.length < 6) {
+                            $(".prev_wrap").hide();
+                            $(".next_wrap").hide();
+                            $(".num_wrap").css("justify-content", "center");
+                        } else {
+                            $(".prev_wrap").show();
+                            $(".next_wrap").show();
+                            $(".num_wrap").css("justify-content", "flex-start");
                         }
 
-                        sx = n_w.scrollLeft();
+                        n_w_a = $(".num_wrap > a.num_btn");
 
-                        if (tc === "max_prev") n_w.scrollLeft(0);
-                        else if (tc === "prev") n_w.scrollLeft(sx - move_val);
-                        else if (tc === "next") n_w.scrollLeft(sx + move_val);
-                        else if (tc === "max_next") n_w.scrollLeft(m_nt_scroll_val);
+                        p_n_a.on("click", prev_next_btn_event);
 
-                        tock_func();
-                        tick_func();
+                        function prev_next_btn_event(event) {
+                            let tc = $(this).attr("class").split(" ")[1];
+                            let move_val = (Number(n_w.css("width").replace("px", "")) + Number(n_w_a.css("margin-right").replace("px", ""))),
+                                m_nt_scroll_val = (Number(n_w_a.css("width").replace("px", "")) * n_w_a.length + Number(n_w_a.css("margin-right").replace("px", "")) * (n_w_a.length - 1));
 
-                    }
-
-                    n_w.on("mousewheel DOMMouseScroll", n_w_wheel_event);
-                    function n_w_wheel_event(event) {
-                        ts = $(this);
-                        let dy = event.originalEvent;
-
-                        function tick_func() {
-                            tick = setTimeout(() => ts.scrollLeft(28 * (ts.find(".active").attr("value") - 3)), 3000);
-                        }
-
-                        function tock_func() {
-                            tock = clearTimeout(tick);
-                        }
-
-                        event.preventDefault();     // document up&down scroll 방지
-
-                        if (wheel_bool) {
-                            if (dy.deltaY > 0) {
-                                sx = ts.scrollLeft();
-                                ts.scrollLeft(sx + ((24 + 4) * 5));
-
-                                rf.css("height", "36px");
-                                if (all_inp.length !== 1) {
-                                    // $(".dropdown-btn").blur();
-                                    $(".dropdown-menu").removeClass("show");
-                                }
-                            } else {
-                                sx = ts.scrollLeft();
-                                ts.scrollLeft(sx - ((24 + 4) * 5));
+                            function tick_func() {
+                                tick = setTimeout(() => n_w.scrollLeft(28 * (n_w.find(".active").attr("value") - 3)), 3000);
                             }
 
-                            wheel_bool = false;
-                            setTimeout(function () {
-                                wheel_bool = true;
-                            }, 220);
+                            function tock_func() {
+                                tock = clearTimeout(tick);
+                            }
+
+                            sx = n_w.scrollLeft();
+
+                            if (tc === "max_prev") n_w.scrollLeft(0);
+                            else if (tc === "prev") n_w.scrollLeft(sx - move_val);
+                            else if (tc === "next") n_w.scrollLeft(sx + move_val);
+                            else if (tc === "max_next") n_w.scrollLeft(m_nt_scroll_val);
+
+                            tock_func();
+                            tick_func();
+
                         }
 
-                        tock_func();
-                        tick_func();
-                    }
+                        n_w.on("mousewheel DOMMouseScroll", n_w_wheel_event);
 
-                    function h_active_event() {
-                        n_w.find("a.num_btn").off("mouseenter mouseleave").end().find("a.num_btn:not('.active')").on("mouseenter", function (event) {
-                            $(this).addClass("h_active");
-                        }).on("mouseleave", function (event) {
-                            $(this).removeClass("h_active");
-                        });
-                    }
+                        function n_w_wheel_event(event) {
+                            ts = $(this);
+                            let dy = event.originalEvent;
 
-                    h_active_event();
+                            function tick_func() {
+                                tick = setTimeout(() => ts.scrollLeft(28 * (ts.find(".active").attr("value") - 3)), 2000);
+                            }
 
-                    n_w_a.on("click", function (event) {
-                        ts = $(this);
-                        let tv = ts.attr("value");
-                        // h_active
+                            function tock_func() {
+                                tock = clearTimeout(tick);
+                            }
 
-                        ts.removeClass("h_active");
+                            event.preventDefault();     // document up&down scroll 방지
 
-                        for (i = 0; i < n_w_a.length; i++) {
-                            n_w_a.removeClass("active");
+                            if (wheel_bool) {
+                                if (dy.deltaY > 0) {
+                                    sx = ts.scrollLeft();
+                                    ts.scrollLeft(sx + ((24 + 4) * 5));
+                                } else {
+                                    sx = ts.scrollLeft();
+                                    ts.scrollLeft(sx - ((24 + 4) * 5));
+                                }
+
+                                wheel_bool = false;
+                                setTimeout(function () {
+                                    wheel_bool = true;
+                                }, 220);
+                            }
+
+                            tock_func();
+                            tick_func();
                         }
-                        ts.addClass("active");
 
-                        n_w.scrollLeft(28 * (ts.attr("value") - 3));
-
-                        // page_btn 누르면 페이지 하단에 머물게 하기?? 아니면 그대로 두기??
-
-                        c_b.empty();
-
-                        for (i = 0; i < wines_result_ary[tv].length - 1; i++) {
-                            c_b.append(wines_result_ary[tv][i]);
+                        function h_active_event() {
+                            n_w.find("a.num_btn:not(.active)").off("mouseenter mouseleave").end().find("a.num_btn:not('.active')").on("mouseenter", function (event) {
+                                $(this).addClass("h_active");
+                            }).on("mouseleave", function (event) {
+                                $(this).removeClass("h_active");
+                            });
                         }
 
                         h_active_event();
-                    });
-                    // /page_btn group
 
-                    tw.fadeIn(1000).css({
-                        "display": "flex",
-                        "padding-top": "calc(142px + 16px)"     // 임시
-                    });
+                        $(".num_wrap > a.num_btn:not(.active)").on("click", function (event) {
+                            ts = $(this);
+                            let tv = ts.attr("value");
 
-                    // console.log(wines_result_ary);
-                    // console.log(wines_result_ary[0][0]);
+                            for (i = 0; i < ts.length; i++) {
+                                n_w_a.removeClass("active");
+                            }
+                            ts.addClass("active");
+
+                            n_w.scrollLeft(28 * (ts.attr("value") - 3));
+
+                            // page_btn 누르면 페이지 하단에 머물게 하기?? 아니면 그대로 두기??
+
+                            c_b.empty();
+
+                            for (i = 0; i < wines_result_ary[tv].length - 1; i++) {
+                                c_b.append(wines_result_ary[tv][i]);
+                            }
+
+                            h_active_event();
+                        });
+                        // /page_btn group
+
+                        tw.fadeIn(1000).css({
+                            "display": "flex",
+                            "padding-top": "calc(142px + 16px)"     // 임시
+                        });
+
+                        // console.log(wines_result_ary);
+                        // console.log(wines_result_ary[0][0]);
+                    }
                 }
-            }
 
-            // console.log($("tr").length);
+                // console.log($("tr").length);
+            }
         }
     });
 }

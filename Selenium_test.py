@@ -18,7 +18,18 @@ driver.get(url)
 time.sleep(0.5) ## 0.5초
 
 # driver.find_element_by_name(<element의 name>).send_keys(<검색어>)
-element = driver.find_element_by_name('q')
-element.send_keys("펭수")
+search = driver.find_element_by_name('q')
+search.send_keys("CINQUANTA COLLEZIONE")
 
-element.submit()
+search.submit()
+
+
+image_tab = driver.find_element_by_class_name('hide-focus-ring')
+
+image_tab.click()
+
+
+image = driver.find_element_by_id("islrg").find_element_by_class_name("islrc").find_element_by_tag_name("div:nth-child(1)")
+
+image.click()
+# good

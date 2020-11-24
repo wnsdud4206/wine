@@ -3,6 +3,24 @@ from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
 db = client.dbwine
 
+# k_name = list(db.wines_test.find({}, {"_id": False, "와인_이름_kr": True}))
+# print(k_name[0].values())
+#
+# def test():
+#     if k_name.includes("소비뇽"):
+#         print(k_name)
+
+user = list(db.user_ip.find({}, {"_id": False}))
+print(user)
+user_ip_one = db.user_ip.find_one({"user_ip": "112.170.15.208"}, {"_id": False, "user_name": True})
+print(list(user_ip_one.values())[0] == "user_0")
+# find_user = list(db.user_ip.find({}, {"_id": False, "user_ip": True}))
+find_user = list(db.user_ip.find({}, {"_id": False, "user_ip": True}))
+print(find_user)
+if {"user_ip": '112.170.15.208'} in find_user:
+    print("good")
+
+
 # print(type(len(list(db.wines_test.find({})))))
 
 # last_date = "2019-01-01"        # 다른 collection 혹은 다른 db에 저장 후 크롤링이 끝이나면 현재 시각 저장

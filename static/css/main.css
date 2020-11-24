@@ -6,6 +6,10 @@
     font-weight: 600;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 html, body {
     min-height: 100%;
 }
@@ -86,7 +90,7 @@ a:hover {
 
 .logo_form_wrap > h1.logo {          /* 너비를 글씨 크기에 맞춰야함 */
     /*outline: 1px solid yellow;*/
-    background-color: white;
+    background-color: rgba(255, 255, 255, .9);
 
     text-align: center;
     outline: 1px solid orange;
@@ -110,14 +114,16 @@ a:hover {
 
     position: relative;
     transform: translateY(0);
+    opacity: 1;
     z-index: 10;
     /*outline: 1px solid yellow;*/
     /*padding: 100px 0;            !* 임시 *!*/
 
-    transition: transform .2s;
+    transition: transform .2s, opacity .2s;
 }
 .logo_form_wrap > .form_wrap.hide {
     transform: translateY(-150%);
+    opacity: 0;
 }
 
 .logo_form_wrap > .form_wrap > form {       /* mouseover => .result_form show */
@@ -360,8 +366,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
     /* logo_input_wrap height 142px */
     /*margin-top: calc(206px + 20px);*/
-    padding-right: 2%;
-    padding-left: 2%;
+    padding-right: calc(2% + 4% + 2%);
+    padding-left: calc(2% + 4%);
     padding-bottom: calc(60px + 16px);
 }
 .table_wrap > table {
@@ -377,6 +383,15 @@ input[type="number"]::-webkit-inner-spin-button {
 .table_wrap > table > thead {
     outline: 1px solid limegreen;
 }
+.table_wrap > table tr {
+
+}
+.table_wrap > table tr > th,
+.table_wrap > table tr > td {
+    text-align: center;
+}
+
+
 .table_wrap > table > thead > tr {
 
 }
@@ -390,7 +405,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 }
 .table_wrap > table > #content_box > tr > td {
-
+    font-size: .9em;
 }
 
 .table_wrap > .page_btn_wrap {
@@ -410,7 +425,6 @@ input[type="number"]::-webkit-inner-spin-button {
     white-space: nowrap;
     overflow: hidden;
     scroll-behavior: smooth;
-
 
     align-items: center;
     flex-wrap: nowrap;
@@ -504,6 +518,244 @@ footer > #icon_wrap a {
     height: 32px;
 }
 
+
+div#ip_object {
+    /*outline: 1px solid red;*/
+
+    width: 600px;
+    /*min-height: 100px;*/
+    height: 100px;
+
+    background-color: white;
+
+    border: 1px solid lightgray;
+    border-radius: 0 0 10px 10px;
+    box-sizing: border-box;
+
+    display: none;
+
+    box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .1);
+
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /*transition: opacity 1s;*/
+}
+/*div#ip_object.opa_hide {*/
+/*    opacity: 0;*/
+/*}*/
+
+/* 이름이 입력되면 더 이상 나오지 않게 하기, jquery show, hide 사용? */
+div#ip_object > div.hide {
+    display: none;
+}
+/* #name_insert */
+div#ip_object > div#name_insert {
+        /*outline: 1px solid blue;*/
+
+    width: 100%;
+    height: 100%;
+
+    /*background-color: rgba(0, 0, 255, .2);*/
+    background-color: white;
+
+    border: 1px solid lightgray;
+    border-radius: 0 0 10px 10px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+
+    z-index: 15;
+
+}
+
+/* #text_wrap */
+div#name_insert > div#text_wrap {
+    outline: 1px solid powderblue;
+
+    margin-bottom: 12px;
+
+    display: flex;
+    align-items: center;
+
+    transition: font .5s;
+}
+div#text_wrap > span.insert_info_text {
+    /*transition: opacity 1s, width 1s;*/
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity .5s .4s, width .5s;
+}
+div#text_wrap > span#insert_info_text_1 {
+}
+div#text_wrap > span#insert_info_text_2 {
+    /*width: calc(220px + 16px);*/
+    width: 443.8px;
+    /* 296 */
+    margin-left: 8px;
+}
+div#text_wrap > span#insert_info_text_2.test_ani {
+    opacity: 0;
+    width: 0;
+}
+/*div#text_wrap > span#insert_info_text_3 {*/
+/*    width: 218.2px;*/
+/*}*/
+/*div#text_wrap > span#insert_info_text_3.test_ani {*/
+/*    opacity: 0;*/
+/*    width: 0;*/
+/*}*/
+
+/* #name_inp_wrap */
+div#name_insert > div#name_inp_wrap {
+    outline: 1px solid pink;
+
+    /*height: 27px;*/
+    /*width: 159.5px;*/
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    transition: font .5s, width .5s;
+}
+div#name_inp_wrap > label {
+    /*color: darkgray;*/
+    margin: 0;
+}
+div#name_inp_wrap > input#name_inp {
+    outline: none;
+    border: none;
+    width: 80px;
+    border-bottom: 1px solid black;
+    text-align: center;
+
+    margin: 0 8px;
+
+    transition: width .2s;
+}
+div#name_inp_wrap > button.name_insert_btn {        /* inp 값이 생기면 나타나는 애니메이션!! */
+    /*outline: 1px solid black;*/
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    background: none;
+
+    /*display: none;*/
+
+    padding: 0 6px;
+
+    color: white;
+    background: lightgray;
+
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 0;*/
+
+    transition: background .3s, opacity .3s;
+
+    /*pointer-events: none;*/
+    cursor: pointer;
+}
+/* 159.5 195 */
+div#name_inp_wrap > button.name_insert_btn.name_insert_post {
+    background: #b4281E;
+}
+/* jquery show */ /* 61, 85.5 */
+/* object */
+.font_size_cls {
+    font-size: 1.5em;
+}
+
+div#ip_object > div.check_alert {
+    /*outline: 1px solid blue;*/
+
+    background-color: white;
+
+    width: 300px;
+    height: 80px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    border: 1px solid lightgray;
+    border-radius: 0 0 10px 10px;
+    box-sizing: border-box;
+
+    box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .1);
+
+    display: flex;
+    /*display: none;*/
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    position: absolute;
+    top: 98px;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    transition: height .2s, transform .2s;
+
+    z-index: 14;
+}
+div#ip_object > div.check_alert.hide {
+    height: 0;
+
+    transform: translate(-50%, -10px);
+    /*display: none;*/
+}
+div#ip_object > div.check_alert > p.check_text {
+    font-size: 1.1em;
+    margin: 0;
+}
+div#ip_object > div.check_alert > p.check_text > span.user_inp_name {
+
+}
+div#ip_object > div.check_alert > div.check_btn_wrap {
+
+}
+div#ip_object > div.check_alert > div.check_btn_wrap > button.check_btn {
+    outline: 1px solid blue;
+    /*outline: none;*/
+    border: none;
+    background: none;
+
+    cursor: pointer;
+}
+div#ip_object > div.check_alert > div.check_btn_wrap > button.check_no {
+    margin-right: 10px;
+}
+div#ip_object > div.check_alert > div.check_btn_wrap > button.check_ok {
+}
+
+
+div#ip_object > div#visit_info {
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(255, 0, 0, .2);
+
+    display: none;
+
+    position: absolute;
+}
+
+
+
+
+
+
 .home_btn {
     outline: 1px solid blue;
     width: 47px;
@@ -516,7 +768,170 @@ footer > #icon_wrap a {
 
     display: none;
 }
+.top_btn {
+    outline: 1px solid blue;
+    width: 47px;
+    height: 47px;
+
+    display: none;
+
+    position: fixed;
+        top: 78%;          /* 임시 */
+        right: 2%;         /* 임시 */
+    z-index: 12;
+    /*cursor: pointer;*/
+
+    /*display: none;*/
+}
 /* fadeIn 처리 */
 /*.home_btn.home_btn_show {*/
 /*    display: block;*/
 /*}*/
+
+
+/* control style */
+#control_wrap {
+        /*outline: 1px solid red;*/
+    width: 80px;
+    height: 80px;
+
+    /*border: 1px solid blue;*/
+    border-radius: 50%;
+
+    box-sizing: border-box;
+
+    box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .1);
+
+    position: fixed;
+    top: 72%;
+    right: 2%;
+}
+
+#control_wrap > #control_bar_wrap {
+        outline: 1px solid black;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+/* 리팩토링은 나중에 */
+
+/* wrap */
+#control_bar_wrap div.bar_wrap {
+    pointer-events: none;
+}
+#control_bar_wrap div.bar_wrap > .back {
+    border-radius: 3px;
+}
+#control_bar_wrap div.bar_wrap > .bar {     /* position */
+    border-radius: 3px;
+}
+
+
+/* up */
+#control_bar_wrap > #up_bar_wrap {
+    width: 6px;
+    height: calc(37px - 2px);
+}
+#control_bar_wrap > #up_bar_wrap > #up_back {
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+}
+#control_bar_wrap > #up_bar_wrap > #up_bar {
+        display: none;
+    width: 100%;
+    height: 50%;
+    background-color: powderblue;
+}
+
+/* #control_bar_wrap_center */
+#control_bar_wrap > #control_bar_wrap_center {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    pointer-events: none;
+}
+
+/* left */
+#control_bar_wrap > #control_bar_wrap_center > #left_bar_wrap {
+    width: calc(37px - 2px);
+    height: 6px;
+}
+#control_bar_wrap > #control_bar_wrap_center > #left_bar_wrap > #left_back {
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+}
+#control_bar_wrap > #control_bar_wrap_center > #left_bar_wrap > #left_bar {
+        display: none;
+    width: 50%;
+    height: 100%;
+    background-color: powderblue;
+}
+
+/* right */
+#control_bar_wrap > #control_bar_wrap_center > #right_bar_wrap {
+    width: calc(37px - 2px);
+    height: 6px;
+
+}
+#control_bar_wrap > #control_bar_wrap_center > #right_bar_wrap > #right_back {
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+
+}
+#control_bar_wrap > #control_bar_wrap_center > #right_bar_wrap > #right_bar {
+        display: none;
+    width: 50%;
+    height: 100%;
+    background-color: powderblue;
+
+}
+
+/* down */
+#control_bar_wrap > #down_bar_wrap {
+    width: 6px;
+    height: calc(37px - 2px);
+
+}
+#control_bar_wrap > #down_bar_wrap > #down_back {
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+
+}
+#control_bar_wrap > #down_bar_wrap > #down_bar {
+        display: none;
+    width: 100%;
+    height: 50%;
+    background-color: powderblue;
+
+}
+
+/* circle */
+#control_wrap > #control_circle {       /* transform scale */
+    width: 24px;
+    height: 24px;
+    background-color: #666;
+
+    border-radius: 50%;
+
+    position: absolute;
+    top: calc((80px / 2) - (24px / 2));
+    left: calc((80px / 2) - (24px / 2));
+    /*transform: translate(-50%, -50%);*/
+
+    cursor: pointer;
+
+    pointer-events: none;
+}
