@@ -10,7 +10,7 @@ let i, j;
 
 
 // client 접속 ip
-
+let client_ip = ip();
 
 // $(function(){
 let wraps = $(".logo > div"),
@@ -295,353 +295,6 @@ topic_select();
 
 
 
-let io = $("#ip_object"),
-    n_insert = $("#name_insert"),
-    t_w = $("#text_wrap"),
-    i_i_t = $(".insert_info_text"),
-    n_inp_w = $("#name_inp_wrap"),
-    n_inp = $("#name_inp"),
-    n_insert_btn = $(".name_insert_btn"),
-    c_a = $(".check_alert"),
-    u_inp_n = $(".user_inp_name"),
-    c_no = $(".check_no"),
-    c_ok = $(".check_ok");
-function name_insert_object() {
-
-    function name_insert_event() {
-        setTimeout(function () {
-            io.slideDown(600);
-            setTimeout(function () {
-                i_i_t.eq(1).removeClass("test_ani")
-            }, 1200);
-        }, 300);
-
-        n_inp.on("focusin", function () {
-            n_inp_w.addClass("font_size_cls");
-            t_w.removeClass("font_size_cls");
-            i_i_t.eq(1).css("width", "296px");
-        }).on("focusout", function () {
-            t_w.addClass("font_size_cls");
-            n_inp_w.removeClass("font_size_cls");
-            i_i_t.eq(1).css("width", "443.8px");
-        }).on("keyup", function () {
-            let wid = $(this).width();
-            if ($(this).val().length > 2) {
-                $(this).width(80 + (20 * ($(this).val().length - 2)));
-            } else {
-                $(this).width(80);
-            }
-
-            if ($(this).val() !== "") {
-                n_insert_btn.addClass("name_insert_post");
-            } else {
-                n_insert_btn.removeClass("name_insert_post");
-            }
-        });
-
-        n_insert_btn.on("click", function (event) {
-            if ($(this).attr("class").includes("name_insert_post")) {
-                u_inp_n.text(n_inp.val());
-                c_a.removeClass("hide");
-
-                c_no.off("click").on("click", function () {
-                    c_a.addClass("hide");
-                    n_inp.focus();
-                });
-                c_ok.off("click").on("click", function () {
-                    console.log("name_insert");
-                    c_a.addClass("hide");
-                    postClientIp();
-                    // io 말고 n_insert 숨기고 visit_info 효과 보이기(n번째 방문이시네요)
-                });
-            }
-        });
-    }
-    // name_insert_event();
-
-}
-// name_insert_object();
-
-
-
-
-// 리팩토링 none
-// function topic_select() {
-//
-//     // let q_dbd = $(".date_box > .date"),
-//     //     ndy = $(".min_date_year"),
-//     //     ndm = $(".min_date_month"),
-//     //     ndd = $(".min_date_day"),
-//     //     xdy = $(".max_date_year"),
-//     //     xdm = $(".max_date_month"),
-//     //     xdd = $(".max_date_day");
-//
-//
-//     let ig = document.getElementsByClassName("input-group"),
-//         // dd_b = document.getElementsByClassName("dropdown-btn"),
-//         dd_m = document.getElementsByClassName("dropdown-menu"),
-//         iw = document.getElementsByClassName("input_wrap"),
-//         inp = document.getElementsByClassName("form-control");
-//
-//     for (i = 0; i < ig.length; i++) {
-//         let dm_a = dd_m[i].querySelectorAll("a");
-//         for (j = 0; j < dm_a.length; j++) {
-//
-//             dm_a[j].addEventListener("click", dm_a_event);
-//             function dm_a_event(event){
-//                 let a_dd_b = this.parentElement.previousElementSibling,
-//                     a_iw = this.parentElement.parentElement.nextElementSibling,
-//                     a_inp = a_iw.children[0],
-//                     a_iw_cls_ary = a_iw.getAttribute("class").split(" ")[1];
-//                 let a_value = this.getAttribute("value") + "_box";
-//
-//                 a_dd_b.innerText = this.innerText;
-//
-//                 // 수입일 제외, 수입일은 따로 기능 넣어주기
-//                 if (a_value === "date_box") {
-//                     let input_date_html = `
-//                         <input class="form-control min_fix_inp" type="number" value="20" readonly/>
-//                         <input class="form-control min_date_year date_year date" id="min_date_year" type="number" value="19" />
-//                         <label for="min_date_year" class="col-form-label">년</label>
-//                         <input class="form-control min_date_month date_month date" id="min_date_month" type="number" value="1" />
-//                         <label for="min_date_month" class="col-form-label">월</label>
-//                         <input class="form-control min_date_day date_day date" id="min_date_day" type="number" value="1" />
-//                         <label for="min_date_day" class="col-form-label">일</label>
-//
-//                         <label class="col-form-label">~</label>
-//
-//                         <input class="form-control max_fix_inp" type="number" value="20" readonly/>
-//                         <input class="form-control max_date_year date_year date" id="max_date_year" type="number" value="${today_year}" />
-//                         <label for="max_date_year" class="col-form-label">년</label>
-//                         <input class="form-control max_date_month date_month date" id="max_date_month" type="number" value="${today_month}" />
-//                         <label for="max_date_month" class="col-form-label">월</label>
-//                         <input class="form-control max_date_day date_day date" id="max_date_day" type="number" value="${today_day}" />
-//                         <label for="max_date_day" class="col-form-label">일</label>
-//                     `;
-//                     a_iw.innerHTML = input_date_html;
-//
-//                 } else {
-//                     let input_html = `
-//                         <input type="text" class="form-control ${a_value}" aria-label="Text input with dropdown button">
-//                         `;
-//                     a_iw.innerHTML = input_html;
-//                 }
-//                 a_iw.classList.remove(a_iw_cls_ary);
-//                 a_iw.classList.add(a_value);
-//
-//                 iw_cls_ary_push();
-//                 select_hide();
-//                 dbd_change_event();
-//                 search_btn_event();
-//                 this.addEventListener("click", dm_a_event);
-//             }
-//         }
-//
-//
-//         // dd_b_ary에 있는 값과 a(value)의 값이 같은 것들은 모두 class add .hide, +추가할 때도
-//     }
-//     // console.log(iw_cls_ary);
-//
-//     function iw_cls_ary_push() {
-//         iw_cls_ary.splice(0, iw_cls_ary.length);
-//         for (i = 0; i < ig.length; i++) {
-//             iw_cls_ary.push(iw[i].getAttribute("class").split(" ")[1]);
-//         }
-//     }
-//     iw_cls_ary_push();
-//
-//     function select_hide() {
-//         let a_Tag = document.querySelectorAll(".dropdown-menu > a");
-//         for (i = 0; i < a_Tag.length; i++) {
-//             if (iw_cls_ary.includes(a_Tag[i].getAttribute("value") + "_box")) {
-//                 a_Tag[i].classList.add("hide");
-//             } else {
-//                 a_Tag[i].classList.remove("hide");
-//             }
-//         }
-//     }
-//     select_hide();
-//
-//
-//     function dbd_change_event() {
-//         let dbd = document.querySelectorAll(".date_box > .date"),
-//             ndy = dbd[0],
-//             ndm = dbd[1],
-//             ndd = dbd[2],
-//             xdy = dbd[3],
-//             xdm = dbd[4],
-//             xdd = dbd[5];
-//         for (i = 0; i <  dbd.length; i++) {
-//             dbd[i].addEventListener("change", function (event) {
-//                 date_range(ndy, 19, 20);
-//                 date_range(ndm, 1, 12);
-//                 date_range(ndd, 1, 31);
-//                 date_range(xdy, 19, 20);
-//                 date_range(xdm, 1, 12);
-//                 date_range(xdd, 1, 31);
-//             });
-//         }
-//
-//         function date_range(name, min, max) {
-//             if (name.value === "") {
-//                 name.value = name.getAttribute("value");
-//             } else if (name.value < min) {
-//                 name.value = min;
-//             } else if (name.value > max) {
-//                 name.value = max;
-//             }
-//         }
-//     }
-//     dbd_change_event();
-//
-//     // 20201110 success
-//     function search_btn_event() {
-//         let q_ig = $(".input-group");
-//         let iw_cls_new_ary = [];
-//         for (i = 0; i < q_ig.length; i++) {
-//             iw_cls_new_ary.push(q_ig.eq(i).find(".input_wrap").attr("class").split(" ")[1]);
-//         }
-//         // console.log(iw_cls_new_ary);
-//         if (iw_cls_new_ary.includes("date_box")) {
-//             // search show
-//             $(".search_btn").show();
-//         } else {
-//             $(".search_btn").hide();
-//         }
-//         let inp_not_date = $(".input_wrap:not(.date_box) > .form-control");
-//         for (i = 0; i < inp_not_date.length; i++) {
-//             inp_not_date.eq(i).on("keyup", function(event) {
-//                 for (j = 0; j < inp_not_date.length; j++) {
-//                     if (inp_not_date.eq(j).val() === "") {
-//                         $(".search_btn").hide();
-//                         // search hide
-//                     } else {
-//                         $(".search_btn").show();
-//                         // search show
-//                         break
-//                     }
-//                 }
-//             });
-//         }
-//         // for (i = 0; i < iw_inp_not_fix.length; i++) {
-//         // iw_inp_not_fix.on("keyup", function (evnet) {
-//         //     let inp_val_ary = [];
-//         //     for (j = 0; j < q_ig.length; j++) {
-//         //         if (q_ig.eq(j).find(".input_wrap").attr("class").split(" ")[1] !== "date_box") {
-//         //             inp_val_ary.push(q_ig.eq(j).find(".form-control").val());
-//         //         }
-//         //     }
-//         //     for (j = 0; j < inp_val_ary.length; j++) {
-//         //         if (inp_val_ary[j].includes("")) {
-//         //
-//         //         }
-//         //     }
-//         //     // console.log(inp_val_ary);
-//         //     // console.log(inp_val_ary.includes(""));
-//         // });
-//             // console.log(i);
-//         // }
-//
-//             // let none_val = 0;
-//             // for (i = 0; i < q_ig.length; i++) {
-//             //     if (q_ig.eq(i).find(".input_wrap").attr("class").split(" ")[1] !== "date_box") {
-//             //         if (q_ig.eq(i).find(".form-control").val() === "") {
-//             //             none_val++;
-//             //             console.log("ig_=" + none_val);
-//             //         } else (
-//             //             console.log("ig_=nothing")
-//             //         )
-//             //         console.log("test" + i);
-//             //     }
-//             // }
-//             // if (q_ig.find(".input_wrap:not(.date_box)").length !== none_val) {
-//             //     none_val = 0;
-//             //     console.log("ig_2=" + none_val);
-//             // } else (
-//             //     console.log("ig_2=nothing")
-//             // )
-//             // for (i = 0; i < q_ig.length; i++) {
-//             //     if (q_ig.eq(i).find(".input_wrap").attr("class").split(" ")[1] === "date_box") {
-//             //         for (j = 0; j < dbd.length; j++) {
-//             //             if (dbd.eq(j).val() === "") {
-//             //                 none_val++
-//             //                 console.log("dbd=" + none_val);
-//             //             } else (
-//             //                 console.log("dbd=nothing")
-//             //             )
-//             //         }
-//             //     }
-//             // }
-//             // console.log(none_val);
-//             // console.log(none_val);
-//             // if (none_val === 0) {
-//             //     $(".search_btn").show();
-//             // } else {
-//             //     $(".search_btn").hide();
-//             // }
-//         // });
-//     }
-//     search_btn_event();
-//
-//     // function topic_select_function() {
-//     //     inp_cls_ary_push();
-//     //     select_hide();
-//     // }
-//     // inp[0].focus();
-// }
-// topic_select();
-
-// dbd_change_event() function
-
-
-// function date_input_base_val() {
-//     // javascript 로??
-//     $("#min_date_year").val("19");
-//     // document.getElementsByClassName("min_date_year").value = 19;
-// }
-// date_input_base_val();
-
-// 이거 해야됨 ***************************************************************************************
-// date input 안에 숫자 범위 적용시키기
-// 아래 두 코드 활용
-// date_year, date_month, date_day
-// input 안에 값이 존재할 때 search 버튼 나타나게 하기
-// document.getElementsByClassName("k_name")[0].addEventListener("keyup", test_event);
-// function test_event(event) {
-//     if (this.value != "") {
-//         document.getElementsByTagName("h1")[0].style.color = "red";
-//     } else {
-//         document.getElementsByTagName("h1")[0].style.color = "black";
-//     }
-//     this.addEventListener("change", test_event);
-// }
-// jquery
-// for (i = 0; i < q_ig.length; i++) {
-//     if (inp_v(i) !== "") {
-//         // search show
-//     } else if (q_ig.eq(i).find(".input_wrap").attr("class").split(" ")[1] === "date_box") {
-//         if (ndy.val() === "" || ndm.val() === "" || ndd.val() === "" || xdy.val() === "" || xdm.val() === "" || xdd.val() === "") {
-//             // search hide
-//         }
-//     } else if () {
-//     }
-// }
-//     function inp_v(n) {
-//     return q_ig.eq(n).find(".input_wrap:not(.date_box) > input").val();
-// }
-
-// for (i = 0; i < inp_cls_ary.length; i++) {
-//     q_ig.find("." + inp_cls_ary)
-// }
-
-
-// jquery event 안에 javascript 코드가 실행 되는지
-// function test() {
-//     document.getElementsByTagName("h1")[0].style.color = "red";
-// }
-// $("h1").on("click", function(event){
-//     test();
-// });
 
 
 // input add button
@@ -796,9 +449,6 @@ function remove_all_btn_event(event) {
 // input_add_btn();
 
 
-// remove_btn
-
-
 // control_circle - javascript
 // let cw = document.getElementById("control_wrap"),
 //     cc = document.getElementById("control_circle");
@@ -926,26 +576,102 @@ function inp_hide_object() {
 // 띄어쓰기 생략해도 검색 가능하게끔?(일단 k_name ~ winery만 구현)
 // google 처럼 한글자 검색할 때마다 나오는 자동완성? 창 문자열 index 가 가장 낮은 순서대로 나오게(5개정도?)
 
-function post_client_name() {
 
-    $.ajax({
-        type: "POST",
-        url: "/ipNameInsert",
-        data: {"client_name": n_inp_val},
-        success: function (response) { // 성공하면
-            // if (response["result"] === "success") {
-            //     // alert(response["msg"]);
-            //     // window.location.reload();
-            //     console.log("search_POST");
-            // }
+let io = $("#ip_object"),
+    n_insert = $("#name_insert"),
+    t_w = $("#text_wrap"),
+    i_i_t = $(".insert_info_text"),
+    n_inp_w = $("#name_inp_wrap"),
+    n_inp = $("#name_inp"),
+    n_insert_btn = $(".name_insert_btn"),
+    c_a = $(".check_alert"),
+    u_inp_n = $(".user_inp_name"),
+    c_no = $(".check_no"),
+    c_ok = $(".check_ok");
+// name_insert_object();
+function name_insert_object() {
+
+    setTimeout(function () {
+        io.show();
+        n_insert.slideDown(600).css("display", "flex");
+        setTimeout(function () {
+            i_i_t.eq(1).removeClass("test_ani")
+        }, 1200);
+    }, 300);
+
+    n_inp.on("focusin", function () {
+        n_inp_w.addClass("font_size_cls");
+        t_w.removeClass("font_size_cls");
+        i_i_t.eq(1).css("width", "296px");
+    }).on("focusout", function () {
+        t_w.addClass("font_size_cls");
+        n_inp_w.removeClass("font_size_cls");
+        i_i_t.eq(1).css("width", "443.8px");
+    }).on("keyup", function () {
+        let wid = $(this).width();
+        if ($(this).val().length > 2) {
+            $(this).width(80 + (20 * ($(this).val().length - 2)));
+        } else {
+            $(this).width(80);
         }
-    })
+
+        if ($(this).val() !== "") {
+            n_insert_btn.addClass("name_insert_post");
+        } else {
+            n_insert_btn.removeClass("name_insert_post");
+        }
+    });
+
+    n_insert_btn.on("click", function (event) {
+        if ($(this).attr("class").includes("name_insert_post")) {
+            c_a.slideDown(300).css("display", "flex");
+            u_inp_n.text(n_inp.val());
+            c_a.removeClass("hide");
+
+            c_no.off("click").on("click", function () {
+                c_a.addClass("hide");
+                n_inp.focus();
+            });
+            c_ok.off("click").on("click", function () {
+                console.log("name_insert");
+                c_a.addClass("hide");
+                io.fadeOut(600);
+                setTimeout(function() {
+                    n_insert.css("display", "none");
+                    c_a.css("display", "none");
+                    postClientIp();
+                }, 1000);
+                // io 말고 n_insert 숨기고 visit_info 효과 보이기(n번째 방문이시네요)
+            });
+        }
+    });
+
 }
-console.log(ip());
+let v_i = $("#visit_info"),
+    v_t = $(".visit_text"),
+    v_n = $(".visit_name"),
+    v_c = $(".visit_count");
+function visit_object(visit_name, visit_count) {
+    io.show();
+    v_i.slideDown(600).css("display", "flex");
+    v_n.text(visit_name);
+    v_c.text(visit_count);
+
+    setTimeout(function() {
+        console.log("slide");
+        v_i.slideUp(400);
+        setTimeout(function() {
+            v_i.css("display", "none");
+            io.hide();
+        }, 400);
+    }, 2000);
+}
+
+console.log(client_ip);
 function postClientIp() {
     // let n_inp_val = n_inp.val();
     let n_inp_val;
-    let client_ip = ip();
+    // let client_ip;
     if (n_inp.val() !== "") {
         n_inp_val = n_inp.val();
     } else {
@@ -958,11 +684,10 @@ function postClientIp() {
         url: "/ip",
         data: {"client_ip_give": client_ip, "client_name": n_inp_val},
         success: function (response) { // 성공하면
-            // if (response["result"] === "success") {
-            //     // alert(response["msg"]);
-            //     // window.location.reload();
-            //     console.log("search_POST");
-            // }
+            if (response["result"] === "success") {
+                console.log("ip_POST");
+                getClientIp();
+            }
         }
     })
 }
@@ -973,25 +698,64 @@ function getClientIp() {
         url: "/ip",
         data: {},
         success: function (response) { // 성공하면
-            // if (response["result"] === "success") {
-            //     // alert(response["msg"]);
-            //     // window.location.reload();
-            //     console.log("search_POST");
-            // }
+            if (response["result"] === "success") {
+                // client_ip
+                // user_ip, user_visit, user_name
+                let users = response["ip"],
+                    u_ip_ary = [],
+                    u_visit_ary = [],
+                    u_name_ary = [];
+
+                for (i = 0; i < users.length; i++) {
+                    let user = users[i],
+                        u_ip = user["user_ip"],
+                        u_visit = user["user_visit"],
+                        u_name = user["user_name"],
+                        test_name = "";
+
+                    u_ip_ary.push(u_ip)
+                    u_visit_ary.push(u_visit)
+                    u_name_ary.push(u_name)
+
+                    if (u_ip === client_ip) {
+                        console.log(u_name);
+                        console.log(Object.keys(user).length)   // dict length
+                        for (j = 0; j < Object.keys(user).length; j++) {
+                            if (u_name === "user_" + j) {
+                                console.log("test_name");
+                                test_name = "user_" + j;
+                                name_insert_object();
+                            }
+                        }
+                        console.log(test_name);
+                        if (u_name !== test_name) {
+                            console.log(test_name);
+                            // n번째 방문이시네요! 실행
+                            visit_object(u_name, u_visit);
+                        }
+                    } else {
+                        console.log("false");
+                    }
+                }
+
+                console.log(u_ip_ary);
+                console.log(u_visit_ary);
+                console.log(u_name_ary);
+
+                // if (u_ip_ary.includes(client_ip)) {
+                //     console.log("true");
+                //     // name_insert_object();
+                // } else {
+                //     console.log("false");
+                // }
+
+            }
         }
     })
 }
-
+getClientIp();
 
 function postArticle() {
-    // let k_name, e_name, country, importer, winery, date_min, date_max;
-    // k_name = $("#search_k_name").val();
-    // e_name = $("#search_e_name").val().toUpperCase();
-    // country = $("#search_country").val();
-    // importer = $("#search_importer").val();
-    // winery = $("#search_winery").val().toUpperCase();
-    // date_min = $("#search_date_min").val();
-    // date_max = $("#search_date_max").val();
     let q_ig = $(".input-group");
     let k_name_val = "",
         e_name_val = "",
@@ -1271,7 +1035,6 @@ function showArticles2() {
                         $(window).scrollTop(0);
                         $(".logo_form_wrap").addClass("top_fixed");
                         $(".home_btn").fadeIn(1000).on("click", home_btn_event);
-                        $(".top_btn").fadeIn(1000).on("click", top_btn_event);
 
 
                         // 검색이 안됨

@@ -524,17 +524,17 @@ div#ip_object {
 
     width: 600px;
     /*min-height: 100px;*/
-    height: 100px;
+    /*height: 100px;*/
 
-    background-color: white;
+    /*background-color: white;*/
 
-    border: 1px solid lightgray;
-    border-radius: 0 0 10px 10px;
+    /*border: 1px solid lightgray;*/
+    /*border-radius: 0 0 10px 10px;*/
     box-sizing: border-box;
 
-    display: none;
+    /*display: none;*/
 
-    box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .1);
+    /*box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .1);*/
 
     position: fixed;
     top: 0;
@@ -556,7 +556,7 @@ div#ip_object > div#name_insert {
         /*outline: 1px solid blue;*/
 
     width: 100%;
-    height: 100%;
+    height: 100px;
 
     /*background-color: rgba(0, 0, 255, .2);*/
     background-color: white;
@@ -565,7 +565,10 @@ div#ip_object > div#name_insert {
     border-radius: 0 0 10px 10px;
     box-sizing: border-box;
 
-    display: flex;
+    box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .1);
+
+    /*display: flex;*/
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -694,8 +697,8 @@ div#ip_object > div.check_alert {
 
     box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .1);
 
-    display: flex;
-    /*display: none;*/
+    /*display: flex;*/
+    display: none;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -709,6 +712,10 @@ div#ip_object > div.check_alert {
 
     z-index: 14;
 }
+    /*div#ip_object > div#name_insert,            !* 임시 *!*/
+    /*div#ip_object > div.check_alert {*/
+    /*    display: none;*/
+    /*}*/
 div#ip_object > div.check_alert.hide {
     height: 0;
 
@@ -742,13 +749,37 @@ div#ip_object > div.check_alert > div.check_btn_wrap > button.check_ok {
 
 div#ip_object > div#visit_info {
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
+    height: 60px;
 
-    background-color: rgba(255, 0, 0, .2);
+    /*background-color: rgba(255, 0, 0, .2);*/
+    background-color: white;
 
+    border: 1px solid lightgray;
+    border-radius: 0 0 10px 10px;
+
+    box-sizing: border-box;
+    box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .1);
+
+    /*display: flex;*/
     display: none;
+    justify-content: center;
+    align-items: center;
 
     position: absolute;
+}
+div#ip_object > div#visit_info > p.visit_text {
+    outline: 1px solid blue;
+
+    font-size: 1.1em;
+
+    margin: 0;
+}
+div#ip_object > div#visit_info > p.visit_text > span.visit_name {
+
+}
+div#ip_object > div#visit_info > p.visit_text > span.visit_count {
+
 }
 
 
