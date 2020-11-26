@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 h1.logo.logo_load_fadeIn {
+    /*background-color: #444;*/
     opacity: 0;
     animation: logo_load_fadeIn .7s ease-in-out .2s 1 alternate forwards;
 }

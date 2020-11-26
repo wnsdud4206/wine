@@ -26,20 +26,57 @@ let wraps = $(".logo > div"),
     WE_f = FE_w.find(".WINE_font"),
     con_f = $(".container-fluid");
 
-$(function() {
-    // FD_w.removeClass("FIND_tlx");
-    // FE_w.removeClass("FINE_opa");
-    // WE_w.removeClass("WINE_opa_tlx");
-    //
-    // W_f.addClass("W_ani");
-    // F_f.addClass("F_ani");
-    // IN_f.addClass("IN_ani");
-    // D_f.addClass("D_ani");
-    // E_f.addClass("E_ani");
 
-    // animation 도 html에 미리 넣어두지 말고 jquery로 addClass 하기?? 새로고침할 때 애니메이션이 깨질 때가 많음
-});
-// });
+// resize
+let img_el_refresh = setInterval(function() {
+    back_resize();
+}, 1);
+setTimeout(function() {
+    clearInterval(img_el_refresh);
+}, 600);
+function back_resize() {
+    let bi = $(".back_images"),
+        bi_w = bi.width(),
+        bi_h = bi.height();
+    let w_iw = window.innerWidth,
+        w_ih = window.innerHeight,
+        max_size;
+
+    if (w_iw / bi_w >= w_ih / bi_h) {
+        max_size = (w_iw / bi_w);
+    } else {
+        max_size = (w_ih / bi_h);
+    }
+
+    bi.width((bi_w * max_size));
+    bi.height((bi_h * max_size));
+}
+// "../static/images/kermit-1651615_1920.jpg"
+let bi_1 = $("#back_img_1"),
+    bi_2 = $("#back_img_2");
+let base_route = "../static/images/",
+    bi_1_ary = ["bottles-50573_1920.jpg", "kermit-1651615_1920.jpg", "red-wine-1004255_1920.jpg", "red-wine-2443699_1920.jpg", "rose-1024710_1920.jpg", "still-life-2905834_1920.jpg", "wine-426463_1920.jpg", "wine-541922_1920.jpg"],
+    bi_2_ary = ["kermit-1651609_1920.jpg", "wine-791132_1920.jpg", "wine-890370_1920.jpg", "wine-1267427_1920.jpg", "wine-2891894_1920.jpg", "wine-4813260_1920.jpg", "wine-bottles-3623697_1920.jpg", "wines-4074819_1920.jpg"];
+
+let img_change = setInterval(function () {
+        bi_1.fadeToggle(1000);
+        bi_2.fadeToggle(1000);
+        setTimeout(function() {
+            if (bi_1.css("display") === "none") {
+                // console.log("b1");
+                bi_1.attr("src", base_route + bi_1_ary[Math.floor(Math.random() * 8)]);
+            }
+            if (bi_2.css("display") === "none") {
+                // console.log("b2");
+                bi_2.attr("src", base_route + bi_2_ary[Math.floor(Math.random() * 8)]);
+            }
+        }, 1100);
+    }, 6000);
+// $("body").removeAttr("onresize");   showArticles2() 에서 remove
+
+
+
+// animation 도 html에 미리 넣어두지 말고 jquery로 addClass 하기?? 새로고침할 때 애니메이션이 깨질 때가 많음
 
 // $(".k_name").focus();
 
@@ -213,23 +250,24 @@ function search_btn_event() {
             $(".dropdown-menu > a").off("click", date_sch_hide);
         }
 
-    } else {
-        // $(".search_btn").hide();
-        // let inp_not_date = $(".input_wrap:not(.date_box) > .form-control");
-
-        // sch_hide();
-        $(".input_wrap:not(.date_box) > .form-control").on("keyup", function (event) {
-
-            if (window.event.keyCode !== 13) {
-                inp_not_date_keyup_event();
-            } else {
-                if (FD_w.attr("class").split(" ").includes("search_btn")) {
-                    postArticle();
-                    // showArticles2();
-                }
-            }
-        });
     }
+    // } else {
+    //     // $(".search_btn").hide();
+    //     // let inp_not_date = $(".input_wrap:not(.date_box) > .form-control");
+    //
+    //     // sch_hide();
+    //     $(".input_wrap:not(.date_box) > .form-control").on("keyup", function (event) {
+    //
+    //         if (window.event.keyCode !== 13) {
+    //             inp_not_date_keyup_event();
+    //         } else {
+    //             if (FD_w.attr("class").split(" ").includes("search_btn")) {
+    //                 postArticle();
+    //                 // showArticles2();
+    //             }
+    //         }
+    //     });
+    // }
 }
 
 function sch_show() {
@@ -487,13 +525,13 @@ function remove_all_btn_event(event) {
 // $(".search_btn").on("click", search_btn_refresh);
 // input value empty(), logo && input fixed top - class를 이용해서
 // table hide -> show
-FD_w.on("click", function (event) {
-// function search_btn_refresh(event) {
-    if ($(this).attr("class").split(" ").includes("search_btn")) {
-        postArticle();
-        // showArticles2();
-    }
-});
+// FD_w.on("click", function (event) {
+// // function search_btn_refresh(event) {
+//     if ($(this).attr("class").split(" ").includes("search_btn")) {
+//         postArticle();
+//         // showArticles2();
+//     }
+// });
 
 function home_btn_event(event) {
     window.location.reload();
@@ -535,38 +573,44 @@ let rf,
     inp_stop,       // tock
     inp_hide;       // tick
 // 그냥 enter, leave 만?? element가 다 달라서 event 적용이 힘듦
+
 function inp_add_cls() {
     form.addClass("result_form");
     rf = $(".result_form");
 }
+inp_add_cls();
 
 function inp_refresh() {
-
     // .on(+ addEventListener) 메소드는 event 중첩이 돼서 refresh 해줄 때 .off 해줘야 됨
     rf.off("mouseenter mousemove mouseleave").on("mouseenter mousemove", function (event) {
         inp_stop_func();
-    }).on("mouseleave", function (event) {
-        inp_hide_func();
     });
+    // rf.on("mouseleave", function (event) {
+    //     inp_hide_func();
+    // });
 
     $(".dropdown-btn").off("click").on("click", event => rf.addClass("visible_form"));
     // $(".dropdown-btn").on("click", event => rf.addClass("visible_form"));
 }
+
+
 function inp_stop_func() {
-    inp_stop = clearTimeout(inp_hide);
+    // inp_stop = clearTimeout(inp_hide);
     rf.css("height", (36 * $(".input-group").length) + "px");
 }
-function inp_hide_func() {
-    if (all_inp.length !== 1) {
-        inp_hide = setTimeout(function () {
-            inp_hide_object();
-        }, 1000);
-    }
-}
-function inp_hide_object() {
-    rf.css("height", "36px").removeClass("visible_form");
-    $(".dropdown-menu").removeClass("show");
-}
+// function inp_hide_func() {
+//     if (all_inp.length !== 1) {
+//         inp_hide = setTimeout(function () {
+//             inp_hide_object();
+//         }, 1000);
+//     }
+// }
+// function inp_hide_object() {
+//     if (!rf.attr("class").includes("pause")) {
+//         rf.css("height", "36px").removeClass("visible_form");
+//         $(".dropdown-menu").removeClass("show");
+//     }
+// }
 
 // search_filter
 
@@ -595,9 +639,12 @@ function name_insert_object() {
         io.show();
         n_insert.slideDown(600).css("display", "flex");
         setTimeout(function () {
-            i_i_t.eq(1).removeClass("test_ani")
+            i_i_t.eq(1).removeClass("test_ani");
+            setTimeout(function() {
+                n_inp_w.css("height", "40px");
+            }, 1500);
         }, 1200);
-    }, 300);
+    }, 2000);
 
     n_inp.on("focusin", function () {
         n_inp_w.addClass("font_size_cls");
@@ -658,13 +705,13 @@ function visit_object(visit_name, visit_count) {
     v_c.text(visit_count);
 
     setTimeout(function() {
-        console.log("slide");
+        // console.log("slide");
         v_i.slideUp(400);
         setTimeout(function() {
             v_i.css("display", "none");
             io.hide();
         }, 400);
-    }, 2000);
+    }, 3000);
 }
 
 console.log(client_ip);
@@ -685,7 +732,7 @@ function postClientIp() {
         data: {"client_ip_give": client_ip, "client_name": n_inp_val},
         success: function (response) { // 성공하면
             if (response["result"] === "success") {
-                console.log("ip_POST");
+                // console.log("ip_POST");
                 getClientIp();
             }
         }
@@ -702,6 +749,7 @@ function getClientIp() {
                 // client_ip
                 // user_ip, user_visit, user_name
                 let users = response["ip"],
+                    test_name = "",
                     u_ip_ary = [],
                     u_visit_ary = [],
                     u_name_ary = [];
@@ -710,50 +758,60 @@ function getClientIp() {
                     let user = users[i],
                         u_ip = user["user_ip"],
                         u_visit = user["user_visit"],
-                        u_name = user["user_name"],
-                        test_name = "";
+                        u_name = user["user_name"];
 
-                    u_ip_ary.push(u_ip)
-                    u_visit_ary.push(u_visit)
-                    u_name_ary.push(u_name)
+                    u_ip_ary.push(u_ip);
+                    u_visit_ary.push(u_visit);
+                    u_name_ary.push(u_name);
 
                     if (u_ip === client_ip) {
-                        console.log(u_name);
-                        console.log(Object.keys(user).length)   // dict length
-                        for (j = 0; j < Object.keys(user).length; j++) {
+                        // console.log(u_name);
+                        // console.log(u_name);
+                        // console.log(users.length);   // dict length
+                        for (j = 0; j < users.length + 1; j++) {
                             if (u_name === "user_" + j) {
-                                console.log("test_name");
+                                // console.log("test_name");
                                 test_name = "user_" + j;
                                 name_insert_object();
                             }
                         }
-                        console.log(test_name);
                         if (u_name !== test_name) {
-                            console.log(test_name);
+                            // console.log(test_name);
                             // n번째 방문이시네요! 실행
                             visit_object(u_name, u_visit);
+                            FD_w.off("click").on("click", function (event) {
+                            // function search_btn_refresh(event) {
+                                if ($(this).attr("class").split(" ").includes("search_btn")) {
+                                    postArticle();
+                                    // showArticles2();
+                                }
+                            });
+                            $(".input_wrap:not(.date_box) > .form-control").off("keyup").on("keyup", function (event) {
+
+                                if (window.event.keyCode !== 13) {
+                                    inp_not_date_keyup_event();
+                                } else {
+                                    if (FD_w.attr("class").split(" ").includes("search_btn")) {
+                                        postArticle();
+                                        // showArticles2();
+                                    }
+                                }
+                            });
+
+                            break
                         }
-                    } else {
-                        console.log("false");
                     }
                 }
 
-                console.log(u_ip_ary);
-                console.log(u_visit_ary);
-                console.log(u_name_ary);
+                // console.log(u_ip_ary);
+                // console.log(u_visit_ary);
+                // console.log(u_name_ary);
 
-                // if (u_ip_ary.includes(client_ip)) {
-                //     console.log("true");
-                //     // name_insert_object();
-                // } else {
-                //     console.log("false");
-                // }
 
             }
         }
     })
 }
-getClientIp();
 
 function postArticle() {
     let q_ig = $(".input-group");
@@ -832,7 +890,7 @@ function postArticle() {
     }
     inp_val();
 
-    console.log(q_ig.length);
+    // console.log(q_ig.length);
 
     $.ajax({
         type: "POST",
@@ -980,53 +1038,16 @@ function showArticles2() {
                         wines_result_ary[count].push(html);
                         num++;
                     }
-                    console.log(wines_result_ary)
+
+
 
 
                     // console.log(wines_result_ary.length)
                     // console.log("last_ary_number: " + wines_result_ary[wines_result_ary.length - 1].length);
 
-                    // variable
-                    // scrolling_view_bar
-                    // let svb = $("#scrolling_view_bar");
-                    let con = document.getElementById("container"),
-                        svb = document.getElementById("scrolling_view_bar"),
-                        vt = document.getElementById("val_text");
-                    // form +q_ig
-                    let fw = $(".form_wrap");
-                    // table#content_box
-                    let tw = $(".table_wrap"),
-                        c_b = $("#content_box");
-                    // div.page_btn_wrap
-                    let pbw = $(".page_btn_wrap");
 
-                    // page 5 초과일 때 화살표 버튼 생성하기
-                    pbw.css("display", "flex");
-
-                    let p_n_a = $(".btn_box:not(.num_wrap) > a.page_btn"),
-                        n_w = $(".num_wrap"),
-                        n_w_a,
-                        m_pr = $(".max_prev"),
-                        pr = $(".prev"),
-                        nt = $(".next"),
-                        m_nt = $(".max_next");
-
-                    let ts,
-                        page_num_btn_html,
-                        sx,
-                        wheel_bool = true,
-                        tick,
-                        tock;
-
-                    // result group
-                    c_b.empty();
-
-                    for (i = 0; i < wines_result_ary[0].length; i++) {
-                        c_b.append(wines_result_ary[0][i]);
-                    }
-                    // /result group
-
-                    if ($("#content_box > tr").length === 0) {
+                    // if ($("#content_box > tr").length === 0) {
+                    if (wines.length === 0) {
                         $(".table_wrap").fadeOut(1000);
                         // NONE
                         alert("검색 결과를 찾을 수 없습니다.");
@@ -1037,9 +1058,56 @@ function showArticles2() {
                         $(".home_btn").fadeIn(1000).on("click", home_btn_event);
 
 
+                        // variable
+                        // scrolling_view_bar
+                        // let svb = $("#scrolling_view_bar");
+                        let con = document.getElementById("container"),
+                            svb = document.getElementById("scrolling_view_bar"),
+                            vt = document.getElementById("val_text");
+                        // form +q_ig
+                        let fw = $(".form_wrap");
+                        // table#content_box
+                        let tw = $(".table_wrap"),
+                            c_b = $("#content_box");
+                        // div.page_btn_wrap
+                        let pbw = $(".page_btn_wrap");
+
+                        // page 5 초과일 때 화살표 버튼 생성하기
+                        pbw.css("display", "flex");
+
+                        let p_n_a = $(".btn_box:not(.num_wrap) > a.page_btn"),
+                            n_w = $(".num_wrap"),
+                            n_w_a,
+                            m_pr = $(".max_prev"),
+                            pr = $(".prev"),
+                            nt = $(".next"),
+                            m_nt = $(".max_next");
+
+                        let ts,
+                            page_num_btn_html,
+                            sx,
+                            wheel_bool = true,
+                            tick,
+                            tock;
+
+
+                        // result group
+                        c_b.empty();
+
+                        for (i = 0; i < wines_result_ary[0].length; i++) {
+                            c_b.append(wines_result_ary[0][i]);
+                        }
+                        // /result group
+
                         // 검색이 안됨
                         // dm_a_refresh();
 
+                        clearInterval(img_change);
+                        // con_f.css("background-color", "white");
+
+                        // resize remove
+                        $("body").removeAttr("onresize");
+                        $(".back_images").fadeOut(300);
 
                         // scrolling_view_bar
                         document.addEventListener("scroll", scrolling_view_bar_event);
@@ -1068,7 +1136,8 @@ function showArticles2() {
 
 
                         // logo_form_wrap
-                        inp_add_cls();
+                        // inp_add_cls();
+                        rf.removeClass("pause");
                         inp_refresh();
                         // result inp down hidden, up show
                         // $(document).on("mousewheel DOMMouseScroll", fw_wheel_event);
@@ -1090,19 +1159,24 @@ function showArticles2() {
                             let _direction = _documentY - window.__scrollPosition >= 0 ? 1 : -1;
 
                             if (window.pageYOffset < (document.body.offsetHeight - window.innerHeight - 80)) {
+
+                                $(".top_btn").fadeOut(500).off("click", top_btn_event);
+
                                 if (_direction > 0) {
                                     ts.classList.add("hide");
 
-                                    inp_hide_object();
+                                    // inp_hide_object();
                                 } else ts.classList.remove("hide");
-                            } else ts.classList.remove("hide");
+                            } else {
+                                $(".top_btn").fadeIn(500).on("click", top_btn_event);
+                                ts.classList.remove("hide");
+                            }
 
                             window.__scrollPosition = _documentY; // Update scrollY
                         }
 
 
                         // /logo_form_wrap
-
 
 
                         // page_btn group

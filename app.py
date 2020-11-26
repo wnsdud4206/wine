@@ -5,6 +5,7 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
+# *** 가비아에서 깨짐... body에 onresize 때문인듯
 # ec2로 접속할 때 MongoClient('mongodb://아이디:패스워드@localhost', 27017), localhost는 내 내AWS아이피 삽입해도 됨
 client = MongoClient('localhost', 27017)  # localhost
 # client = MongoClient('mongodb://joka:4206@localhost', 27017)  # aws ec2 server
@@ -125,21 +126,21 @@ def post_ip():
     # client_name_receive = request.form["client_name"]
     client_name_receive = request.form["client_name"]
 
-    print(client_name_receive == "")        # True
-    print(client_name_receive)              # good
+    # print(client_name_receive == "")        # True
+    # print(client_name_receive)              # good
     # return client_ip
 
     user_list = list(db.user_ip.find({}, {"_id": False}))
-    print(user_list)
+    # print(user_list)
     client_ip_dict = {"user_ip": client_ip_receive}
-    print(client_ip_dict)
+    # print(client_ip_dict)
     find_user = list(db.user_ip.find({}, {"_id": False, "user_ip": True}))
-    print(find_user)
+    # print(find_user)
     # 초기 db 생성
     # db.user_ip.insert({"user_ip": client_ip_receive, "user_visit": 1})
 
     user_ip_one = db.user_ip.find_one({"user_ip": client_ip_receive}, {'_id': False})
-    print(user_ip_one)
+    # print(user_ip_one)
 
     # 이름 바꾸기
     if client_name_receive == "":
